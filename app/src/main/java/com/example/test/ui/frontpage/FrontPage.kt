@@ -386,27 +386,7 @@ fun Results() {
     }
 }
 
-@Composable
-fun navigationbar() {
-    Row (modifier = Modifier. background(Color.Black)){
-        Column (){
-            Image(painter = painterResource(id = R.drawable.baseline_home_24), contentDescription = "HomeButton")
-        }
-        Column {
 
-        }
-        Column {
-
-        }
-        Column {
-
-        }
-        Column {
-
-        }
-    }
-    BottomAppBarDefaults
-}
 @Preview
 @Composable
 fun previewFrontpage() {
@@ -427,7 +407,6 @@ fun previewFrontpage() {
         newsBar()
         LiveBar()
         Results()
-        navigationbar()
     }
 }
 
