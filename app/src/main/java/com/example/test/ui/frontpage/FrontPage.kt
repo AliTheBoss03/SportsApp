@@ -31,16 +31,15 @@ fun logo() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp)
-            .padding(16.dp),
+            .height(100.dp),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        horizontalAlignment = Alignment.Start) {
         Image(
             painter = painterResource(id = R.drawable.logo),
             contentDescription = "Image",
             modifier = Modifier
-                .height(42.dp)
-                .width(49.dp)
+                .height(52.dp)
+                .width(52.dp)
 
         )
     }
@@ -315,7 +314,7 @@ fun Results() {
             )
 
             Text(
-                text = "Watch Live Now", modifier = Modifier, color = Color.White, fontSize = 7.sp
+                text = "Results", modifier = Modifier, color = Color.White, fontSize = 10.sp
             )
 
             Image(
