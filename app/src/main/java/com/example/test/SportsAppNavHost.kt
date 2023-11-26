@@ -3,7 +3,6 @@ package com.example.test
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
-import com.example.test.ui.search.SearchPage
 import androidx.navigation.NavHost as NavHost1
 /*
 @Composable
