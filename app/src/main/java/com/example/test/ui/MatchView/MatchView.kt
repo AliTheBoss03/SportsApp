@@ -3,6 +3,7 @@ package com.example.test.ui.MatchView
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -133,7 +136,7 @@ fun Team(){
             Modifier
                 .fillMaxWidth()
                 .padding(top = 35.dp)
-                .height(25.dp),
+                .height(32.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
 
@@ -146,15 +149,43 @@ fun Team(){
                 , color = androidx.compose.ui.graphics.Color.White
                 , textAlign = TextAlign.Start
 
+            )
+
+
+            //Logo for man utd
+            Image(
+                painter = painterResource(id = R.drawable.manutd), // Erstat med det faktiske ID for dit logo
+                contentDescription = "Man UTD Logo",
+                modifier = Modifier
+                    .height(40.dp)
+                    .width(40.dp)
+                    .padding(start = 12.dp) // Juster afstanden efter behov
 
             )
-            Spacer(modifier = Modifier.width(220.dp))
+
+
+            Spacer(modifier = Modifier.width(175.dp))
+
+
+            //Logo for man city
+            Image(
+                painter = painterResource(id = R.drawable.mancity), // Erstat med det faktiske ID for dit logo
+                contentDescription = "Man CITY Logo",
+                modifier = Modifier
+                    .height(40.dp)
+                    .width(40.dp)
+                    .padding(end= 12.dp) // Juster afstanden efter behov
+            )
+
+
+
 
             Text(text = "Man City"
                 , color = androidx.compose.ui.graphics.Color.White
                 , textAlign = TextAlign.Right
             )
             Spacer(modifier = Modifier.weight(1f))
+
         }
 
 
@@ -175,6 +206,8 @@ fun Team(){
                 color = androidx.compose.ui.graphics.Color.White,
                 textAlign = TextAlign.Center
             )
+
+
         }
     }
 }
@@ -195,15 +228,19 @@ fun LineUP() {
             Modifier
                 .fillMaxWidth()
                 .padding(top = 85.dp)
-                .height(125.dp),
+                .height(125.dp)
+            .border(2.dp, Color.White),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
+
         ) {
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "Line-Up",
                 color = androidx.compose.ui.graphics.Color.White,
-                textAlign = TextAlign.Start
+                textAlign = TextAlign.Start,
+                fontWeight = FontWeight.Bold
+
             )
             Spacer(modifier = Modifier.width(75.dp))
             Box(
@@ -221,19 +258,108 @@ fun LineUP() {
             Spacer(modifier = Modifier.weight(1f))
 
         }
+
+
+
+    }
+}
+
+@Composable
+fun FootballField() {
+
+    Box(
+        modifier = Modifier
+            .padding(top = 250.dp)
+            .fillMaxWidth()
+            .height(600.dp)
+            // Farven på fodboldbanen
+            .background(
+
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(android.graphics.Color.parseColor("#FFA500")),
+                        Color(android.graphics.Color.parseColor("#000000")),
+                        Color(android.graphics.Color.parseColor("#FFA500"))
+                    )
+                )
+
+            )
+            // En hvid border rundt om banen
+            .border(3.dp, Color.White),
+
+
+
+
+    ) {
+        // Mål (øverst)
+        Box(
+            modifier = Modifier
+                .width(100.dp)
+                .height(35.dp)
+                .border(3.dp, Color.White)
+                .align(Alignment.TopCenter)
+
+
+
+        )
+        // Felt
+        Box(
+            modifier = Modifier
+                .width(200.dp)
+                .height(80.dp)
+                .border(3.dp, Color.White)
+                .align(Alignment.TopCenter)
+        )
+
+
+
+        // Mål (nederst)
+        Box(
+            modifier = Modifier
+                .width(100.dp)
+                .height(35.dp)
+                .border(3.dp, Color.White)
+                .align(Alignment.BottomCenter)
+        )
+
+        // Felt
+        Box(
+            modifier = Modifier
+                .width(200.dp)
+                .height(80.dp)
+                .border(3.dp, Color.White)
+                .align(Alignment.BottomCenter)
+        )
+
+
+
+        // Midterlinje
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(3.dp)
+                .background(Color.White)
+                .align(Alignment.Center)
+        )
+
+        // Centercirkel
+        Box(
+            modifier = Modifier
+                .width(90.dp)
+                .height(90.dp)
+                .background(Color.Transparent)
+                .border(3.dp, Color.White, CircleShape)
+                .align(Alignment.Center)
+        )
     }
 }
 
 
 
 
-
-
-
-
 @Preview
 @Composable
-fun previewnigga() {
+fun previewScreen() {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(
@@ -247,17 +373,15 @@ fun previewnigga() {
 
 
 
+
     ){
 
 
         searchBar()
         logo()
         Team()
+        FootballField()
         LineUP()
-
-
-
-
 
     }
 

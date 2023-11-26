@@ -102,10 +102,13 @@ fun SearchBar(onSearch: (String) -> Unit) {
 fun SearchFunktion() {
     var searchQuery by remember { mutableStateOf("") }
 
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
+            .height(100.dp)
 
     ) {
 
@@ -199,6 +202,7 @@ fun PremBar() {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .height(75.dp)
             .padding(top = 175.dp),
 
         horizontalAlignment = Alignment.Start,
