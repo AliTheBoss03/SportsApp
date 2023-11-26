@@ -2,14 +2,20 @@ package com.example.test
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import com.example.test.ui.search.SearchPage
+import androidx.navigation.NavHostController
+import androidx.navigation.NavHost as NavHost1
+/*
+@Composable
+fun SportsAppNavHost(navController: NavHostController){
+    NavHost1(navController = navController, startDestination = "home") {
+        composable()
+    }
+}
 
-/*@Composable
-fun SportsAppNavHost(){
-    //val navController = rememberNavControllor()
+/*
+val navController = rememberNavControllor()
     val searchSettings = remember {
         SearchPage()
         // TODO NavtHost med diverse composables inden i
     }
-}
-*/
+ */
