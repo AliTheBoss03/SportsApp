@@ -104,8 +104,8 @@ class MainActivity : ComponentActivity() {
                                     icon = Icons.Filled.Favorite
                                 ),
                                 BottomNavItem(
-                                    name = "Notifications",
-                                    route = "notifications",
+                                    name = "Notification",
+                                    route = "notification",
                                     icon = Icons.Filled.Notifications
                                 ),
                                 BottomNavItem(
@@ -124,39 +124,7 @@ class MainActivity : ComponentActivity() {
 
                 }
             }
-                val items = listOf(
-                    BottomNavigationItem(
-                        title = "Home",
-                        selectedIcon = Icons.Filled.Home,
-                        unselectedIcon = Icons.Outlined.Home,
-                        hasNews = false,
-                    ),
-                    BottomNavigationItem(
-                        title = "Results",
-                        selectedIcon = Icons.Filled.CheckCircle,
-                        unselectedIcon = Icons.Outlined.CheckCircle,
-                        hasNews = false,
-                    ),
-                    BottomNavigationItem(
-                        title = "Favorites",
-                        selectedIcon = Icons.Filled.Favorite,
-                        unselectedIcon = Icons.Outlined.FavoriteBorder,
-                        hasNews = false,
-                    ),
-                    BottomNavigationItem(
-                        title = "Notifications",
-                        selectedIcon = Icons.Filled.Notifications,
-                        unselectedIcon = Icons.Outlined.Notifications,
-                        hasNews = false,
-                        badgeCount = 4,
-                    ),
-                    BottomNavigationItem(
-                        title = "League",
-                        selectedIcon = Icons.Filled.List,
-                        unselectedIcon = Icons.Outlined.List,
-                        hasNews = false,
-                    ),
-                )
+
 
             }
             }
