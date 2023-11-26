@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,14 +34,14 @@ fun logo() {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start) {
         Image(
-            painter = painterResource(id = R.drawable.logo),
-            contentDescription = "Image",
-            modifier = Modifier
-                .height(52.dp)
-                .width(52.dp)
+painter = painterResource(id = R.drawable.logo),
+contentDescription = "Image",
+modifier = Modifier
+.height(52.dp)
+.width(52.dp)
 
-        )
-    }
+)
+}
 }
 @Composable
 fun searchBar() {
@@ -134,7 +133,7 @@ fun newsBar() {
             )
 
             Text(text ="News"
-            , modifier = Modifier, color = Color.White, fontSize = 10.sp)
+                , modifier = Modifier, color = Color.White, fontSize = 10.sp)
 
             Image(
                 painter = painterResource(id = R.drawable.baseline_play_arrow_24),
@@ -144,28 +143,28 @@ fun newsBar() {
                     .width(27.dp)
             )
         }
-    Image(painter = painterResource(id = R.drawable.nunez),
-        contentDescription = "Image",
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(115.dp),
+        Image(painter = painterResource(id = R.drawable.nunez),
+            contentDescription = "Image",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(115.dp),
             alignment = Alignment.Center
-    )
+        )
 
-    Text(text = "Officielt: Darwin Nunez skifter til Liverpool", modifier = Modifier
-        .background(
-            brush = Brush.verticalGradient(
-                colors = listOf(
-                    Color(android.graphics.Color.parseColor("#FF9900")),
-                    Color(android.graphics.Color.parseColor("#000000")),
-                    Color(android.graphics.Color.parseColor("#FF9900"))
+        Text(text = "Officielt: Darwin Nunez skifter til Liverpool", modifier = Modifier
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(android.graphics.Color.parseColor("#FF9900")),
+                        Color(android.graphics.Color.parseColor("#000000")),
+                        Color(android.graphics.Color.parseColor("#FF9900"))
+                    )
                 )
             )
+            .fillMaxWidth()
+            , color = Color.White,
+            textAlign = TextAlign.Center
         )
-        .fillMaxWidth()
-        , color = Color.White,
-        textAlign = TextAlign.Center
-    )
     }
 }
 @Composable
@@ -251,8 +250,8 @@ fun LiveBar() {
 
             ){
                 Text(text = "Chelsea"
-                , color = Color.White
-                , textAlign = TextAlign.Start)
+                    , color = Color.White
+                    , textAlign = TextAlign.Start)
                 Text(text = "1"
                     , color = Color.White
                     , textAlign = TextAlign.Right)
@@ -267,7 +266,7 @@ fun LiveBar() {
             ){
                 Text(text = "Crystal Palace"
                     , color = Color.White
-                    )
+                )
                 Text(text = "1"
                     , color = Color.White
                     , textAlign = TextAlign.Right)
