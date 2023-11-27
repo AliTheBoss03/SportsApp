@@ -145,7 +145,7 @@ fun Team(){
 
         ){
             Spacer(modifier = Modifier.weight(1f))
-            Text(text = "Man UTD"
+            Text(text = "Man Utd"
                 , color = androidx.compose.ui.graphics.Color.White
                 , textAlign = TextAlign.Start
 
