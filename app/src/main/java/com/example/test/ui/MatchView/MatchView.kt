@@ -28,8 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.test.R
 
-class MatchView {
-}
+
 
 @Composable
 fun logo() {

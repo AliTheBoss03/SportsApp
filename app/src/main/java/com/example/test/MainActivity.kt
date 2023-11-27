@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Favorite
@@ -104,9 +105,9 @@ class MainActivity : ComponentActivity() {
                                     icon = Icons.Filled.Favorite
                                 ),
                                 BottomNavItem(
-                                    name = "Notification",
-                                    route = "notification",
-                                    icon = Icons.Filled.Notifications
+                                    name = "Predictions",
+                                    route = "predictions",
+                                    icon = Icons.Filled.Person
                                 ),
                                 BottomNavItem(
                                     name = "League",
@@ -157,7 +158,7 @@ fun Navigation(navController: NavHostController) {
         composable("favourites") {
             previewFavourite()
         }
-        composable("notification") {
+        composable("predictions") {
 
         }
         composable("league") {

@@ -2,8 +2,7 @@ package com.example.test
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.navigation.NavHostController
-import androidx.navigation.NavHost as NavHost1
+
 /*
 @Composable
 fun SportsAppNavHost(navController: NavHostController){
