@@ -154,7 +154,7 @@ fun Team(){
 
             //Logo for man utd
             Image(
-                painter = painterResource(id = R.drawable.mancity), // Erstat med det faktiske ID for dit logo
+                painter = painterResource(id = R.drawable.manutd), // Erstat med det faktiske ID for dit logo
                 contentDescription = "Man UTD Logo",
                 modifier = Modifier
                     .height(40.dp)
