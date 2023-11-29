@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +26,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.test.R
+import com.example.test.ui.news.NewsScreenPreview
+import com.example.test.ui.results.previewResults
+import androidx.compose.foundation.clickable
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.test.Navigation
+import com.example.test.ui.news.NewsItem
+
 
 @Composable
 fun logo() {
@@ -37,14 +48,14 @@ fun logo() {
 painter = painterResource(id = R.drawable.logo),
 contentDescription = "Image",
 modifier = Modifier
-.height(52.dp)
-.width(52.dp)
+    .height(52.dp)
+    .width(52.dp)
 
 )
 }
 }
 @Composable
-fun searchBar() {
+fun searchBar(navController: NavController) {
     Column(
         modifier = Modifier
             .height(65.dp)
@@ -68,15 +79,21 @@ fun searchBar() {
                 ),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Top
-
+    
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.baseline_newspaper_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
+            IconButton(onClick = { navController.navigate("news") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_newspaper_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
+
+
+
+
             Image(
                 painter = painterResource(id = R.drawable.baseline_search_24),
                 contentDescription = "Image",
@@ -401,7 +418,7 @@ fun previewFrontpage() {
     ) {
 
         logo()
-        searchBar()
+        searchBar(rememberNavController())
         newsBar()
         LiveBar()
         Results()

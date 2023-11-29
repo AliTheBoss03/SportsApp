@@ -64,7 +64,10 @@ import com.example.test.ui.League.PreviewPremierLeagueScreen
 import com.example.test.ui.favourite.previewFavourite
 import com.example.test.ui.frontpage.logo
 import com.example.test.ui.frontpage.previewFrontpage
+import com.example.test.ui.livescreen.Livescreen
+import com.example.test.ui.news.NewsScreenPreview
 import com.example.test.ui.results.previewResults
+import com.example.test.ui.settings.PreviewSettingsPage
 import com.example.test.ui.theme.TestTheme
 import kotlinx.coroutines.selects.whileSelect
 import kotlin.reflect.KProperty
@@ -132,21 +135,6 @@ class MainActivity : ComponentActivity() {
         }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TestTheme {
-        Greeting("Android")
-    }
-}
-@Composable
 fun Navigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
@@ -163,6 +151,18 @@ fun Navigation(navController: NavHostController) {
         }
         composable("league") {
             PreviewPremierLeagueScreen()
+        }
+        composable("settings") {
+            PreviewSettingsPage()
+        }
+        composable("news") {
+            NewsScreenPreview()
+        }
+        composable("search") {
+            com.example.test.ui.search.previewResults()
+        }
+        composable("livescreen") {
+            Livescreen()
         }
     }
 }
