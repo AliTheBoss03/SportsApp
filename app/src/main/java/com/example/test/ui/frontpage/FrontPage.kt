@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,15 +24,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.test.R
-import com.example.test.ui.news.NewsScreenPreview
-import com.example.test.ui.results.previewResults
-import androidx.compose.foundation.clickable
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.test.Navigation
-import com.example.test.ui.news.NewsItem
+import com.example.test.R
 
 
 @Composable
@@ -137,6 +130,9 @@ fun newsBar() {
                         )
                     )
                 ),
+
+
+
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -184,6 +180,10 @@ fun newsBar() {
         )
     }
 }
+
+
+
+
 @Composable
 fun LiveBar() {
     Column(
