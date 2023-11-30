@@ -3,6 +3,7 @@ package com.example.test
 import android.annotation.SuppressLint
 import android.icu.text.CaseMap.Title
 import android.os.Bundle
+import android.util.Log
 import android.widget.AdapterView.OnItemClickListener
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -70,6 +71,13 @@ import com.example.test.ui.results.previewResults
 import com.example.test.ui.settings.PreviewSettingsPage
 import com.example.test.ui.theme.TestTheme
 import kotlinx.coroutines.selects.whileSelect
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
+import retrofit2.http.Tag
 import kotlin.reflect.KProperty
 
 data class BottomNavigationItem(
@@ -80,6 +88,7 @@ data class BottomNavigationItem(
     val badgeCount: Int? = null
 )
 
+const val BaseUrl = "https://www.thesportsdb.com/"
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -131,8 +140,36 @@ class MainActivity : ComponentActivity() {
 
 
             }
+        getMyData()
             }
-        }
+
+    private fun getMyData() {
+        val retrofitBuilder = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BaseUrl)
+            .build()
+            .create(apiInterface::class.java)
+
+        val retrofitData = retrofitBuilder.getData()
+
+        retrofitData.enqueue(object : Callback<List<Table>?> {
+            override fun onResponse(call: Call<List<Table>?>, response: Response<List<Table>?>) {
+                val responseBody = response.body()!!
+
+                val myStringBuilder = StringBuilder()
+                for (Table in responseBody) {
+                    myStringBuilder.append(Table.idTeam)
+                    myStringBuilder.append("/n")
+                }
+
+            }
+
+            override fun onFailure(call: Call<List<Table>?>, t: Throwable) {
+                Log.d("MainActivity","onFailure: "+t.message)
+            }
+        })
+    }
+}
 
 @Composable
 fun Navigation(navController: NavHostController) {

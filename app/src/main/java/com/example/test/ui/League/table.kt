@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.test.R
+import com.example.test.Table
 
 @Composable
 fun PremierLeagueHeader() {
