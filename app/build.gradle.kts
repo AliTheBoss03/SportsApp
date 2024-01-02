@@ -74,6 +74,14 @@ dependencies {
 
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.7.1")
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
+    //gson
+    implementation("com.squareup.retrofit2:converter-gson:2.7.1")
+    //coil
+    implementation("io.coil-kt:coil-compose:1.3.2")
+
 }
 
 

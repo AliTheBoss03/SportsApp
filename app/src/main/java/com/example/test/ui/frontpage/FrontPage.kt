@@ -74,7 +74,7 @@ fun searchBar(navController: NavController) {
             verticalAlignment = Alignment.Top
     
         ) {
-            IconButton(onClick = { navController.navigate("news") }) {
+            IconButton(onClick = { navController.navigate("league") }) {
                 Image(
                     painter = painterResource(id = R.drawable.baseline_newspaper_24),
                     contentDescription = "Image",
