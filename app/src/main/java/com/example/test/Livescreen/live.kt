@@ -1,5 +1,4 @@
-package com.example.test.ui.results
-
+package com.example.test.Livescreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,10 +39,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.test.R
 
-
-class results {
+class live {
 
 }
+
 
 @Composable
 fun logo() {
@@ -178,8 +178,8 @@ fun kalenderLaylout(text: String, paddingTop: Dp) {
 
         ) {
             Text(
-                text= text,color=Color.White,
-                style = androidx.compose.ui.text.TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                text= text,color= androidx.compose.ui.graphics.Color.White,
+                style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold)
 
             )
 
@@ -209,7 +209,7 @@ fun PremBar() {
 
 
 
-    ) {
+        ) {
 
 
         //England bar
@@ -225,7 +225,7 @@ fun PremBar() {
                     )
                 )
             ),
-            )
+        )
 
 
         {
@@ -240,8 +240,8 @@ fun PremBar() {
             Column(modifier = Modifier
                 .padding(top = 10.dp)
                 .padding(end = 10.dp) ){
-                Text(text ="Premier League", color = Color.White, fontWeight = FontWeight.Bold )
-                Text(text = "England", color = Color.White )
+                Text(text ="Premier League", color = androidx.compose.ui.graphics.Color.White, fontWeight = FontWeight.Bold )
+                Text(text = "England", color = androidx.compose.ui.graphics.Color.White )
             }
         }
 
@@ -251,7 +251,7 @@ fun PremBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -264,21 +264,21 @@ fun PremBar() {
             ){
                 Row (horizontalArrangement = Arrangement.Start) {
                     Text(text = "Manchester United"
-                        , color = Color.White
+                        , color = androidx.compose.ui.graphics.Color.White
                         , textAlign = TextAlign.Start)
                     Spacer(modifier = Modifier.width(200.dp))
 
 
                     Column {
                         Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                        Text(text = "FT"
-                            , color = Color.White
+                        Text(text = "79'"
+                            , color = androidx.compose.ui.graphics.Color.White
                             , textAlign = TextAlign.Start)
                     }
 
                 }
                 Text(text = "1"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Right)
 
             }
@@ -296,10 +296,10 @@ fun PremBar() {
 
             ){
                 Text(text = "Luton City"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                 )
                 Text(text = "1"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Right)
             }
 
@@ -323,7 +323,7 @@ fun PremBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
 
             verticalArrangement = Arrangement.SpaceBetween
         ){
@@ -337,22 +337,22 @@ fun PremBar() {
 
             ){
                 Text(text = "Burnley"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Start)
                 Spacer(modifier = Modifier.width(200.dp))
 
 
                 Column {
                     Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(text = "FT"
-                        , color = Color.White
+                    Text(text = "12'"
+                        , color = androidx.compose.ui.graphics.Color.White
                         , textAlign = TextAlign.Start)
                 }
 
 
 
                 Text(text = "1"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Right)
 
 
@@ -366,13 +366,13 @@ fun PremBar() {
 
             ){
                 Text(text = "Arsenal"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                 )
                 Text(text = "3"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Right)
-                }
             }
+        }
 
 
         //Mellemrum for plads
@@ -392,7 +392,7 @@ fun PremBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -405,22 +405,22 @@ fun PremBar() {
 
             ){
                 Text(text = "Tottenham"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Start)
                 Spacer(modifier = Modifier.width(180.dp))
 
 
                 Column {
                     Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(text = "FT"
-                        , color = Color.White
+                    Text(text = "54'"
+                        , color = androidx.compose.ui.graphics.Color.White
                         , textAlign = TextAlign.Start)
                 }
 
 
 
                 Text(text = "5"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Right)
             }
             Row (
@@ -432,10 +432,10 @@ fun PremBar() {
 
             ){
                 Text(text = "Chealsea"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                 )
                 Text(text = "0"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Right)
             }
         }
@@ -458,7 +458,7 @@ fun PremBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -471,21 +471,21 @@ fun PremBar() {
 
             ){
                 Text(text = "Westham"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Start)
                 Spacer(modifier = Modifier.width(185.dp))
 
                 Column {
                     Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(text = "FT"
-                        , color = Color.White
+                    Text(text = "65'"
+                        , color = androidx.compose.ui.graphics.Color.White
                         , textAlign = TextAlign.Start)
                 }
 
 
 
                 Text(text = "3"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Right)
             }
             Row (
@@ -497,10 +497,10 @@ fun PremBar() {
 
             ){
                 Text(text = "Nottingham"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                 )
                 Text(text = "2"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Right)
 
 
@@ -523,7 +523,7 @@ fun PremBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -536,7 +536,7 @@ fun PremBar() {
 
             ){
                 Text(text = "Brigthon"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Start)
                 Spacer(modifier = Modifier.width(190.dp))
 
@@ -544,8 +544,8 @@ fun PremBar() {
 
                 Column {
                     Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(text = "FT"
-                        , color = Color.White
+                    Text(text = "28'"
+                        , color = androidx.compose.ui.graphics.Color.White
                         , textAlign = TextAlign.Start)
 
                 }
@@ -554,7 +554,7 @@ fun PremBar() {
 
 
                 Text(text = "2"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Right)
             }
 
@@ -567,10 +567,10 @@ fun PremBar() {
 
             ){
                 Text(text = "Liverpool"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                 )
                 Text(text = "3"
-                    , color = Color.White
+                    , color = androidx.compose.ui.graphics.Color.White
                     , textAlign = TextAlign.Right)
 
 
@@ -585,10 +585,7 @@ fun PremBar() {
     }
 
 
-
-
 }
-
 
 
 @Preview
@@ -615,7 +612,6 @@ fun previewResults() {
 
 
 }
-
 
 
 
