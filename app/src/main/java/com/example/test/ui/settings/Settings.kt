@@ -51,9 +51,7 @@ fun AccountSetting() {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         SectionHeader("Account Settings")
-        SettingItem("Edit Profile", R.drawable.baseline_keyboard_arrow_right_24)
-        SettingItem("Change Password", R.drawable.baseline_keyboard_arrow_right_24)
-        SettingItem("Push Notifications", R.drawable.baseline_toggle_off_24)
+        SettingItem("App Theme", R.drawable.baseline_toggle_off_24)
     }
 }
 
