@@ -1,5 +1,6 @@
 package com.example.test.ui.frontpage
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +12,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,19 +43,20 @@ fun logo() {
             .fillMaxWidth()
             .height(100.dp),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.Start) {
+        horizontalAlignment = Alignment.Start
+    ) {
         Image(
-painter = painterResource(id = R.drawable.logo),
-contentDescription = "Image",
-modifier = Modifier
-    .height(52.dp)
-    .width(52.dp)
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "Image",
+            modifier = Modifier
+                .height(52.dp)
+                .width(52.dp)
 
-)
-}
+        )
+    }
 }
 @Composable
-fun searchBar(navController: NavController) {
+fun SearchBar(navController: NavController) {
     Column(
         modifier = Modifier
             .height(65.dp)
@@ -59,22 +67,13 @@ fun searchBar(navController: NavController) {
     ) {
         Row (
             modifier = Modifier
-                .width(107.dp)
-                .height(31.dp)
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(android.graphics.Color.parseColor("#FF9900")),
-                            Color(android.graphics.Color.parseColor("#000000")),
-                            Color(android.graphics.Color.parseColor("#FF9900"))
-                        )
-                    )
-                ),
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .width(125.dp)
+                .height(31.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.Top
     
         ) {
-            IconButton(onClick = { navController.navigate("league") }) {
+            IconButton(onClick = { navController.navigate("news") }) {
                 Image(
                     painter = painterResource(id = R.drawable.baseline_newspaper_24),
                     contentDescription = "Image",
@@ -84,33 +83,35 @@ fun searchBar(navController: NavController) {
                 )
             }
 
+            IconButton(onClick = { navController.navigate("search") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_search_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
 
-
-
-            Image(
-                painter = painterResource(id = R.drawable.baseline_search_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.baseline_settings_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
+            IconButton(onClick = { navController.navigate("settings") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_settings_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
         }
 
     }
 }
 @Composable
-fun newsBar() {
+fun NewsBar(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(290.dp)
+            .height(350.dp)
             .padding(vertical = 59.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
@@ -118,9 +119,9 @@ fun newsBar() {
     ) {
         Row (
             modifier = Modifier
-                .width(107.dp)
-                .height(31.dp)
-
+                .width(125.dp)
+                .height(35.dp)
+                /**
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
@@ -129,7 +130,7 @@ fun newsBar() {
                             Color(android.graphics.Color.parseColor("#FF9900"))
                         )
                     )
-                ),
+                )*/,
 
 
 
@@ -137,24 +138,19 @@ fun newsBar() {
             verticalAlignment = Alignment.CenterVertically
 
         ){
-            Image(
-                painter = painterResource(id = R.drawable.baseline_keyboard_double_arrow_right_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-
-            Text(text ="News"
-                , modifier = Modifier, color = Color.White, fontSize = 10.sp)
-
-            Image(
-                painter = painterResource(id = R.drawable.baseline_play_arrow_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
+            OutlinedButton(
+                onClick = { navController.navigate("news") },
+                border = BorderStroke(1.dp, Color.White),
+                modifier = Modifier.padding(1.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.baseline_newspaper_24),
+                    contentDescription = "news",
+                    modifier = Modifier.padding(end = 4.dp)
+                )
+                Text(text ="News"
+                    , modifier = Modifier, color = Color.White, fontSize = 15.sp)
+            }
         }
         Image(painter = painterResource(id = R.drawable.nunez),
             contentDescription = "Image",
@@ -165,7 +161,7 @@ fun newsBar() {
         )
 
         Text(text = "Officielt: Darwin Nunez skifter til Liverpool", modifier = Modifier
-            .background(
+            /**.background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
                         Color(android.graphics.Color.parseColor("#FF9900")),
@@ -173,7 +169,7 @@ fun newsBar() {
                         Color(android.graphics.Color.parseColor("#FF9900"))
                     )
                 )
-            )
+            )*/
             .fillMaxWidth()
             , color = Color.White,
             textAlign = TextAlign.Center
@@ -185,20 +181,20 @@ fun newsBar() {
 
 
 @Composable
-fun LiveBar() {
+fun LiveBar(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 275.dp),
+            .padding(vertical = 250.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
 
     ) {
         Row(
             modifier = Modifier
-                .width(107.dp)
-                .height(31.dp)
-
+                .width(200.dp)
+                .height(35.dp)
+                /**
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
@@ -207,30 +203,24 @@ fun LiveBar() {
                             Color(android.graphics.Color.parseColor("#FF9900"))
                         )
                     )
-                ),
+                )*/,
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.baseline_keyboard_double_arrow_right_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-
-            Text(
-                text = "Watch Live Now", modifier = Modifier, color = Color.White, fontSize = 7.sp
-            )
-
-            Image(
-                painter = painterResource(id = R.drawable.baseline_play_arrow_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
+            OutlinedButton(
+                onClick = { navController.navigate("livescreen") },
+                border = BorderStroke(1.dp, Color.White),
+                modifier = Modifier.padding(1.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.baseline_newspaper_24),
+                    contentDescription = "news",
+                    modifier = Modifier.padding(end = 4.dp)
+                )
+                Text(text ="Watch Live Now"
+                    , modifier = Modifier, color = Color.White, fontSize = 15.sp)
+            }
 
         }
         Row(modifier = Modifier
@@ -254,7 +244,7 @@ fun LiveBar() {
         Column (
             modifier = Modifier
                 .fillMaxWidth()
-                .height(76.dp),
+                .height(85.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -293,11 +283,11 @@ fun LiveBar() {
 }
 
 @Composable
-fun Results() {
+fun Results(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 190.dp),
+            .padding(bottom = 120.dp),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Bottom
 
@@ -305,9 +295,9 @@ fun Results() {
     ) {
         Row(
             modifier = Modifier
-                .width(107.dp)
-                .height(31.dp)
-
+                .width(125.dp)
+                .height(35.dp)
+                /**
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
@@ -316,30 +306,24 @@ fun Results() {
                             Color(android.graphics.Color.parseColor("#FF9900"))
                         )
                     )
-                ),
+                )*/,
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.baseline_keyboard_double_arrow_right_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-
-            Text(
-                text = "Results", modifier = Modifier, color = Color.White, fontSize = 10.sp
-            )
-
-            Image(
-                painter = painterResource(id = R.drawable.baseline_play_arrow_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
+            OutlinedButton(
+                onClick = { navController.navigate("results") },
+                border = BorderStroke(1.dp, Color.White),
+                modifier = Modifier.padding(1.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.CheckCircle,
+                    contentDescription = "news",
+                    modifier = Modifier.padding(end = 4.dp)
+                )
+                Text(text ="Results"
+                    , modifier = Modifier, color = Color.White, fontSize = 15.sp)
+            }
 
         }
         Row(modifier = Modifier
@@ -363,7 +347,7 @@ fun Results() {
         Column (
             modifier = Modifier
                 .fillMaxWidth()
-                .height(76.dp),
+                .height(85.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -402,9 +386,9 @@ fun Results() {
 }
 
 
-@Preview
+
 @Composable
-fun previewFrontpage() {
+fun FrontPage(navController: NavController) {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(
@@ -418,12 +402,17 @@ fun previewFrontpage() {
     ) {
 
         logo()
-        searchBar(rememberNavController())
-        newsBar()
-        LiveBar()
-        Results()
+        SearchBar(navController)
+        NewsBar(navController)
+        LiveBar(navController)
+        Results(navController)
     }
 }
 
+@Preview
+@Composable
+private fun Preview() {
+    FrontPage(navController = rememberNavController())
+}
 
 
