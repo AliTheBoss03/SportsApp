@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,6 +27,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.test.R
 
 
@@ -56,7 +59,7 @@ fun logo() {
 
 
 @Composable
-fun searchBar() {
+fun searchBar(navController: NavController) {
     Column(
         modifier = Modifier
             .height(65.dp)
@@ -67,48 +70,45 @@ fun searchBar() {
     ) {
         Row (
             modifier = Modifier
-                .width(107.dp)
-                .height(31.dp)
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(android.graphics.Color.parseColor("#FF9900")),
-                            Color(android.graphics.Color.parseColor("#000000")),
-                            Color(android.graphics.Color.parseColor("#FF9900"))
-                        )
-                    )
-                ),
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .width(125.dp)
+                .height(31.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.Top
 
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.baseline_newspaper_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.baseline_search_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.baseline_settings_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
+            IconButton(onClick = { navController.navigate("news") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_newspaper_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
 
+            IconButton(onClick = { navController.navigate("search") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_search_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
+
+            IconButton(onClick = { navController.navigate("settings") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_settings_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
         }
 
     }
 }
-
 
 @Composable
 fun backButton(){
@@ -173,7 +173,7 @@ fun Team(){
                 modifier = Modifier
                     .height(40.dp)
                     .width(40.dp)
-                    .padding(end= 12.dp) // Juster afstanden efter behov
+                    .padding(end = 12.dp) // Juster afstanden efter behov
             )
 
 
@@ -375,12 +375,8 @@ fun FootballField() {
     }
 }
 
-
-
-
-@Preview
 @Composable
-fun previewScreen() {
+fun MatchView(navController: NavController) {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(
@@ -398,14 +394,18 @@ fun previewScreen() {
     ){
 
 
-        searchBar()
+        searchBar(navController)
         logo()
         Team()
         FootballField()
         LineUP()
 
     }
+}
 
-
+@Preview
+@Composable
+private fun previewScreen() {
+    MatchView(navController = rememberNavController())
 }
 
