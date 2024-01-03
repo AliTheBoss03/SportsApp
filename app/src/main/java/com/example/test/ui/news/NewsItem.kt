@@ -59,7 +59,7 @@ fun NewsScreen(newsItems: List<NewsItem> = listOf(
 
                 )
             )
-    ) {
+    ){
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
@@ -134,6 +134,7 @@ fun searchBar() {
             modifier = Modifier
                 .width(107.dp)
                 .height(31.dp)
+                /**
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
@@ -142,7 +143,7 @@ fun searchBar() {
                             Color(android.graphics.Color.parseColor("#FF9900"))
                         )
                     )
-                ),
+                )*/,
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Top
 

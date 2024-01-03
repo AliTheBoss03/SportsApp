@@ -71,6 +71,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     val nav_version = "2.7.5"
 
+
+
     implementation("androidx.navigation:navigation-compose:$nav_version")
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.7.1")
@@ -81,6 +83,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:1.3.2")
 
 }
+
 
 
 
