@@ -241,20 +241,42 @@ fun LineUP() {
                 fontWeight = FontWeight.Bold
 
             )
-            Spacer(modifier = Modifier.width(75.dp))
+            Spacer(modifier = Modifier.width(35.dp))
             Box(
                 modifier = Modifier
                     .width(2.dp)
                     .height(20.dp)
                     .background(androidx.compose.ui.graphics.Color.White)
             )
-            Spacer(modifier = Modifier.width(75.dp))
+            Spacer(modifier = Modifier.width(35.dp))
+            Text(
+                text = "Event details",
+                color = androidx.compose.ui.graphics.Color.White,
+                textAlign = TextAlign.Right
+            )
+            Spacer(modifier = Modifier.weight(1f))
+
+
+
+
+            Spacer(modifier = Modifier.width(2.dp))
+            Box(
+                modifier = Modifier
+                    .width(2.dp)
+                    .height(20.dp)
+                    .background(androidx.compose.ui.graphics.Color.White)
+            )
+            Spacer(modifier = Modifier.width(35.dp))
             Text(
                 text = "Table",
                 color = androidx.compose.ui.graphics.Color.White,
                 textAlign = TextAlign.Right
             )
             Spacer(modifier = Modifier.weight(1f))
+
+
+
+
 
         }
 

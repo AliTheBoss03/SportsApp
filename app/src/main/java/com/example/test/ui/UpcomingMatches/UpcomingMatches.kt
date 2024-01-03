@@ -1,4 +1,4 @@
-package com.example.test.ui.`upcomming matches`
+package com.example.test.ui.UpcomingMatches
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -815,7 +815,7 @@ fun MatchRow10() {
 }
 @Preview
 @Composable
-fun Livescreen() {
+fun previewUpcoming() {
     Box(
         modifier = Modifier
             .fillMaxSize()

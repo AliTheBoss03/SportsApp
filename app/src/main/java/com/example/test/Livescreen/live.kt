@@ -590,7 +590,7 @@ fun PremBar() {
 
 @Preview
 @Composable
-fun previewResults() {
+fun previewLive() {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(
