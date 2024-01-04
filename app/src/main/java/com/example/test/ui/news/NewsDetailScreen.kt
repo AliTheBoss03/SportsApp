@@ -71,7 +71,7 @@ fun NewsDetailScreen(newsItem: NewsItem) {
                         "\n" +
                         "Den tidligere Chelsea- og Real Madrid-stjerne har nemlig valgt at indstille sin karriere.\n" +
                         "\n" +
-                        "- Du skal lytte til dig selv og sige stop på det rigtige tidspunkt. Efter 16 år og mere end 700 kampe har jeg besluttet at stoppe min karriere som professionel fodboldspiller, skriver Hazard på Instagram.Offensivspilleren var på toppen af karrieren, da han i 2019 kom til Real Madrid fra Chelsea, men har slet ikke haft samme succes som i London-klubben.\n" +
+                        "- Du skal lytte til dig selv og sige stop på det rigtige tidspunkt. Efter 16 år og mere end 700 kampe har jeg besluttet at stoppe min karriere som professionel fodboldspiller, skriver Hazard på Instagram.ffensivspilleren var på toppen af karrieren, da han i 2019 kom til Real Madrid fra Chelsea, men har slet ikke haft samme succes som i London-klubben.\n" +
                         "\n" +
                         "På grund af skader og manglende form er det kun blevet 76 kampe og 7 mål fordelt på fire sæsoner, hvor han stort set aldrig har været stamspiller.",
                 color = Color.White,

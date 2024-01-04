@@ -1,5 +1,7 @@
 package com.example.test
 
+import NewsDetailScreen
+import NewsDetailScreenPreview
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -39,6 +41,7 @@ import com.example.test.ui.League.PreviewPremierLeagueScreen
 import com.example.test.ui.UpcomingMatches.previewUpcoming
 import com.example.test.ui.favourite.Favourite
 import com.example.test.ui.frontpage.FrontPage
+import com.example.test.ui.news.NewsScreen
 import com.example.test.ui.news.NewsScreenPreview
 import com.example.test.ui.results.previewResults
 import com.example.test.ui.settings.PreviewSettingsPage
@@ -169,8 +172,21 @@ fun Navigation(navController: NavHostController) {
         composable("upcoming") {
             previewUpcoming()
         }
+        composable("nyhedDetail/{newsTitle}") { backStackEntry ->
+            val newsTitle = backStackEntry.arguments?.getString("newsTitle")
+            NewsDetailScreen(newsTitle)
+        }
+        composable("news") {
+            NewsScreen(navController = navController)
+        }
+
     }
+    }
+
+fun NewsDetailScreen(newsItem: String?) {
+    TODO("Not yet implemented")
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

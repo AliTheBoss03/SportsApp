@@ -72,7 +72,7 @@ dependencies {
     val nav_version = "2.7.5"
 
 
-
+    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha10")
     implementation("androidx.navigation:navigation-compose:$nav_version")
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.7.1")
@@ -81,6 +81,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.7.1")
     //coil
     implementation("io.coil-kt:coil-compose:1.3.2")
+
 
 }
 

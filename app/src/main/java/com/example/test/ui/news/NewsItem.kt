@@ -16,6 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.test.R
+import androidx.compose.foundation.clickable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+
 
 data class NewsItem(
     val title: String,
@@ -42,7 +46,7 @@ fun logo() {
 }
 
 @Composable
-fun NewsScreen(newsItems: List<NewsItem> = listOf(
+fun NewsScreen(navController: NavHostController, newsItems: List<NewsItem> = listOf(
     NewsItem("Officielt: David Nunez skriver under med Liverpool", R.drawable.nunez),
     NewsItem("Premier League Legende stopper karrieren", R.drawable.hazard),
     NewsItem("Chok skifte: Rasmus Højlund på vej væk?", R.drawable.rasmush)
@@ -56,16 +60,15 @@ fun NewsScreen(newsItems: List<NewsItem> = listOf(
                         Color(android.graphics.Color.parseColor("#000000")),
                         Color(android.graphics.Color.parseColor("#FF9900"))
                     )
-
                 )
             )
-    ){
+    ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
             modifier = Modifier.padding(16.dp)
         ) {
-            logo() //
+            logo()
             searchBar()
             Text(
                 text = "Scoreball news",
@@ -81,21 +84,24 @@ fun NewsScreen(newsItems: List<NewsItem> = listOf(
             )
             Spacer(modifier = Modifier.height(16.dp))
             newsItems.forEach { news ->
-                NewsArticle(news)
+                NewsArticle(news) {
+                    // Når en nyhedsartikel klikkes, naviger til detaljesiden
+                    navController.navigate("nyhedDetail/${news.title}")
+                }
             }
         }
     }
 }
 
+
 @Composable
-fun NewsArticle(news: NewsItem) {
+fun NewsArticle(news: NewsItem, onClick: () -> Unit) {
     Card(
-        colors = CardDefaults.cardColors(
-            containerColor = Color.Black
-        ),
+        colors = CardDefaults.cardColors(containerColor = Color.Black),
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
+            .clickable(onClick = onClick)
     ) {
         Column(modifier = Modifier.padding(all = 8.dp)) {
             Text(
@@ -108,18 +114,16 @@ fun NewsArticle(news: NewsItem) {
 
             Image(
                 painter = painterResource(id = news.imageResId),
-                contentDescription = "Nyhedsbilleder",
+                contentDescription = "Nyhedsbillede",
                 modifier = Modifier
                     .height(150.dp)
                     .fillMaxWidth(),
                 contentScale = ContentScale.Crop
-
-
             )
         }
     }
-
 }
+
 
 @Composable
 fun searchBar() {
@@ -166,5 +170,10 @@ fun searchBar() {
 @Preview(showBackground = true)
 @Composable
 fun NewsScreenPreview() {
-    NewsScreen()
+    val dummyNavController = rememberNavController()  // Opretter en dummy NavController
+    NewsScreen(navController = dummyNavController, newsItems = listOf(
+        NewsItem("Eksempel nyhed 1", R.drawable.nunez),
+        NewsItem("Eksempel nyhed 2", R.drawable.hazard),
+        NewsItem("Eksempel nyhed 3", R.drawable.rasmush)
+    ))
 }
