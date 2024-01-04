@@ -311,6 +311,9 @@ fun FootballField() {
 
 
 
+
+
+
         ) {
         // Mål (øverst)
         Box(
@@ -375,8 +378,10 @@ fun FootballField() {
     }
 }
 
+
+
 @Composable
-fun MatchView(navController: NavController) {
+fun LineUpView(navController: NavController) {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(
@@ -406,6 +411,6 @@ fun MatchView(navController: NavController) {
 @Preview
 @Composable
 private fun previewScreen() {
-    MatchView(navController = rememberNavController())
+    LineUpView(navController = rememberNavController())
 }
 
