@@ -253,7 +253,11 @@ fun PremBar() {
                 .height(76.dp)
                 .border(1.dp, Color.Black),
             verticalArrangement = Arrangement.SpaceBetween
+
+
+
         ){
+
 
             Row (
                 Modifier

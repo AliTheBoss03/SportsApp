@@ -3,7 +3,7 @@ package com.example.test.ui.settings
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,6 +14,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.test.R
 
 @Composable
@@ -56,7 +59,7 @@ fun AccountSetting() {
 }
 
 @Composable
-fun MoreSettings() {
+fun MoreSettings(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -65,12 +68,84 @@ fun MoreSettings() {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         SectionHeader("More")
-        SettingItem("About Us", R.drawable.baseline_keyboard_arrow_right_24)
-        SettingItem("Contact Us", R.drawable.baseline_keyboard_arrow_right_24)
-        SettingItem("Privacy Policy", R.drawable.baseline_keyboard_arrow_right_24)
-        SettingItem("Terms and Conditions", R.drawable.baseline_keyboard_arrow_right_24)
+        OutlinedButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            onClick = { navController.navigate("about us") },
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = Color.White, // Hvid farve for teksten
+            )
+        ) {
+            Text("About Us")
+        }
+        OutlinedButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            onClick = { navController.navigate("contact us") },
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = Color.White, // Hvid farve for teksten
+            )
+        ) {
+            Text("Contact Us")
+        }
+        OutlinedButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            onClick = { navController.navigate("Privacy Policy") },
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = Color.White, // Hvid farve for teksten
+            )
+        ) {
+            Text("Privacy Policy")
+        }
+        OutlinedButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            onClick = { navController.navigate("terms and conditions") },
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = Color.White, // Hvid farve for teksten
+            )
+        ) {
+            Text("Terms and Conditions")
+        }
     }
 }
+
+
+
+@Composable
+fun ButtonSettingItem(text: String, iconId: Int, onClick: () -> Unit) {
+    TextButton(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        colors = ButtonDefaults.textButtonColors(
+            contentColor = Color.White
+        )
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = text,
+                fontSize = 20.sp
+            )
+            Icon(
+                painter = painterResource(id = iconId),
+                contentDescription = text,
+                modifier = Modifier.size(52.dp)
+            )
+        }
+    }
+}
+
 
 @Composable
 fun SettingItem(text: String, iconId: Int) {
@@ -106,23 +181,24 @@ fun SectionHeader(title: String) {
         Text(
             text = title,
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold, //
-            color = Color(0xFF9E9E9E), //
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFF9E9E9E),
             modifier = Modifier.padding(horizontal = 16.dp)
         )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(color = Color(0xFF9E9E9E)) //
-                .padding(horizontal = 16.dp)
+        Divider(
+            color = Color(0xFF9E9E9E),
+            thickness = 1.dp,
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
     }
 }
-
-@Preview(showBackground = true, widthDp = 360, heightDp = 640)
 @Composable
-fun PreviewSettingsPage() {
+@Preview(showBackground = true, widthDp = 360, heightDp = 640)
+fun PreviewSettingsPage(){
+    SettingsPage(rememberNavController())
+}
+@Composable
+fun SettingsPage(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -140,7 +216,7 @@ fun PreviewSettingsPage() {
         Column {
             SettingsLogo()
             AccountSetting()
-            MoreSettings()
+            MoreSettings(navController)
         }
     }
 }
