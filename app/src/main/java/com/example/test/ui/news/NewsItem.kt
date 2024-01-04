@@ -133,17 +133,7 @@ fun searchBar() {
         Row (
             modifier = Modifier
                 .width(107.dp)
-                .height(31.dp)
-                /**
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(android.graphics.Color.parseColor("#FF9900")),
-                            Color(android.graphics.Color.parseColor("#000000")),
-                            Color(android.graphics.Color.parseColor("#FF9900"))
-                        )
-                    )
-                )*/,
+                .height(31.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Top
 
