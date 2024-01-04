@@ -53,11 +53,10 @@ fun ContactUs() {
                         "-------------------------------------------------------------------\n"+
                         "Monday: 8-17\n" +
                         "Tuesday: 8-13\n" +
-                        "Wednesday: 8-17\n" +
+                        "Wednesday: Closed" +
                         "Thursday: 8-17\n" +
                         "Friday: 8-13\n" +
-                        "Saturday: Closed\n" +
-                        "Sunday: Closed",
+                        "Weekends: Closed",
                 color = Color.White,
                 fontSize = 16.sp,
                 lineHeight = 24.sp

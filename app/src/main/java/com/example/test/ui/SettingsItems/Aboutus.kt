@@ -1,4 +1,3 @@
-// AboutUs.kt
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
