@@ -44,7 +44,6 @@ fun AboutUs(navController: NavHostController) {
         Column {
 
             BackButton {
-
                 navController.popBackStack()
             }
             Spacer(modifier = Modifier.height(8.dp))
