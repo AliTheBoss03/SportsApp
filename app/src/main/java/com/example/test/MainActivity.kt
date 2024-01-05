@@ -36,6 +36,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.test.Livescreen.previewLive
 import com.example.test.ui.League.PreviewPremierLeagueScreen
+import com.example.test.ui.MatchView.EventDetailsView
+import com.example.test.ui.MatchView.LineUpView
 import com.example.test.ui.UpcomingMatches.previewUpcoming
 import com.example.test.ui.favourite.Favourite
 import com.example.test.ui.frontpage.FrontPage
@@ -168,6 +170,13 @@ fun Navigation(navController: NavHostController) {
         }
         composable("upcoming") {
             previewUpcoming()
+        }
+        composable("Eventdetail") {
+            EventDetailsView(navController)
+
+        }
+        composable("LineUp") {
+            LineUpView(navController)
         }
     }
 }
