@@ -1,5 +1,6 @@
 package com.example.test.ui.MatchView
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +12,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
@@ -22,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,12 +59,13 @@ fun LineUP2(navController:NavController) {
             verticalAlignment = Alignment.CenterVertically
 
         ) {
-            OutlinedButton(
+            Button(
                 onClick = { navController.navigate("LineUp") },
-                modifier = Modifier.padding(1.dp)
+                modifier = Modifier.padding(1.dp),
+                colors = ButtonDefaults.buttonColors( Color.Transparent),
 
 
-            ) {
+                ) {
                 Text(
                     text = "Line-Up",
                     modifier = Modifier,
@@ -110,9 +116,10 @@ fun LineUP2(navController:NavController) {
 
 
             Spacer(modifier = Modifier.width(10.dp))
-            OutlinedButton(
+            Button(
                 onClick = { navController.navigate("table") },
-                modifier = Modifier.padding(1.dp)
+                modifier = Modifier.padding(1.dp),
+                colors = ButtonDefaults.buttonColors( Color.Transparent),
             ) {
                 Text(
                     text = "Table",
@@ -144,15 +151,28 @@ fun Stadium() {
                 .padding(top = 100.dp)
                 .height(125.dp),
             horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+
+
 
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.stadium), // Erstat med din billedressource
+                contentDescription = "Stadium Image",
+                modifier = Modifier.size(45.dp) // Justér størrelsen efter behov
+                .padding(start = 5.dp),
+
+            )
+
+
+
+
             Text(
                 text = "Stadium",
                 fontSize = 16.sp,
                 color = Color.White,
                 textAlign = TextAlign.Start,
-                modifier = Modifier.padding(start = 32.dp)
+
 
 
             )
@@ -181,6 +201,7 @@ fun Ref() {
             .height(125.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
+
     ) {
 
         Row(
@@ -191,13 +212,23 @@ fun Ref() {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
 
+
+
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.ref), // Erstat med din billedressource
+                contentDescription = "Ref Image",
+                modifier = Modifier.size(45.dp) // Justér størrelsen efter behov
+                    .padding(start = 5.dp),
+
+                )
+
             Text(
                 text = "Ref",
                 fontSize = 16.sp,
                 color = Color.White,
                 textAlign = TextAlign.Start,
-                modifier = Modifier.padding(start = 32.dp)
+
 
             )
 
@@ -229,22 +260,38 @@ fun description() {
             .height(300.dp),
     ) {
 
+
         Divider(
             color = Color.White,
             thickness = 1.dp,
             modifier = Modifier.padding(vertical = 12.dp) // Tilføj vertical padding omkring Divider
         )
 
-        Spacer(modifier = Modifier.width(35.dp))
-        Text(
-            text = "Description",
-            color = Color.White,
-            textAlign = TextAlign.Start,
-            fontSize = 16.sp,
-            modifier = Modifier.padding(bottom = 10.dp)
-                .padding(start = 32.dp)
 
-        )
+
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(start = 16.dp)
+
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.desc), // Erstat med din billedressource
+                contentDescription = "Ref Image",
+                modifier = Modifier.size(25.dp) // Justér størrelsen efter behov
+            )
+
+            Spacer(modifier = Modifier.width(1.dp)) // Tilføj en lille afstand mellem billede og tekst
+
+            Text(
+                text = "Description",
+                color = Color.White,
+                textAlign = TextAlign.Start,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(start = 5.dp) // Tilføj start padding til teksten
+            )
+        }
+
 
         Text(
             text = "A top showdown between arch-rivals that is " +
@@ -255,7 +302,8 @@ fun description() {
             color = Color.White,
             lineHeight = 24.sp,
             modifier = Modifier.padding(top = 16.dp)
-                .padding(start = 32.dp)
+                .padding(start = 48.dp)
+                .width(320.dp)
         )
 
     }

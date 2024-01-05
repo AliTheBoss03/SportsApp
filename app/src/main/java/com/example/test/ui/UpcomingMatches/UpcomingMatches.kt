@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -871,37 +873,45 @@ fun MatchRow10(navController: NavController) {
 
 @Composable
 fun Upcoming(navController: NavHostController) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color(android.graphics.Color.parseColor("#000000")),
-                        Color(android.graphics.Color.parseColor("#FF9900"))
+            .verticalScroll(rememberScrollState())
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color(android.graphics.Color.parseColor("#000000")),
+                            Color(android.graphics.Color.parseColor("#FF9900"))
+                        )
                     )
                 )
-            )
-    )
 
-    {
-        logo()
-        SearchFunktion()
-        MatchRow1(navController)
-        MatchRow2(navController)
-        MatchRow3(navController)
-        MatchRow4(navController)
-        MatchRow5(navController)
-        MatchRow6(navController)
-        MatchRow7(navController)
-        MatchRow8(navController)
-        MatchRow9(navController)
-        MatchRow10(navController)
+        ) {
+            logo()
+            SearchFunktion()
+            MatchRow1(navController)
+            MatchRow2(navController)
+            MatchRow3(navController)
+            MatchRow4(navController)
+            MatchRow5(navController)
+            MatchRow6(navController)
+            MatchRow7(navController)
+            MatchRow8(navController)
+            MatchRow9(navController)
+            MatchRow10(navController)
         }
     }
+}
 
 @Preview
 @Composable
 private fun PreviewUpcoming() {
     Upcoming(navController = rememberNavController())
 }
+
+
+
