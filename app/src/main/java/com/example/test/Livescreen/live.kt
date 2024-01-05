@@ -3,6 +3,7 @@ package com.example.test.Livescreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +38,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.test.R
 
 class live {
@@ -196,7 +200,7 @@ fun kalenderLaylout(text: String, paddingTop: Dp) {
 
 
 @Composable
-fun PremBar() {
+fun PremBar(navController: NavController) {
     // Premierleague Bar
     Column(
         modifier = Modifier
@@ -251,7 +255,11 @@ fun PremBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black)
+                .clickable {
+                    // Naviger til LineUp skærmen
+                    navController.navigate("LineUp")
+                },
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -588,9 +596,9 @@ fun PremBar() {
 }
 
 
-@Preview
+
 @Composable
-fun previewLive() {
+fun previewLive(navController: NavHostController) {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(
@@ -603,15 +611,20 @@ fun previewLive() {
         )
     ){
         logo()
-        PremBar()
+        PremBar(navController)
         kalender()
         SearchFunktion()
 
 
     }
 
-
 }
+@Preview
+@Composable
+private fun LiveView() {
+    previewLive(navController = rememberNavController())
+}
+
 
 
 

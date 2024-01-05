@@ -10,7 +10,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
@@ -42,11 +41,11 @@ import com.example.test.Livescreen.previewLive
 import com.example.test.ui.League.PreviewPremierLeagueScreen
 import com.example.test.ui.MatchView.EventDetailsView
 import com.example.test.ui.MatchView.LineUpView
-import com.example.test.ui.UpcomingMatches.previewUpcoming
+import com.example.test.ui.UpcomingMatches.Upcoming
 import com.example.test.ui.favourite.Favourite
 import com.example.test.ui.frontpage.FrontPage
 import com.example.test.ui.news.NewsScreenPreview
-import com.example.test.ui.results.previewResults
+import com.example.test.ui.results.ResultsView
 import com.example.test.ui.settings.PreviewSettingsPage
 import com.example.test.ui.settings.SettingsPage
 import com.example.test.ui.theme.TestTheme
@@ -150,7 +149,7 @@ fun Navigation(navController: NavHostController) {
             FrontPage(navController)
         }
         composable("results") {
-            previewResults()
+            ResultsView(rememberNavController())
         }
         composable("favourites") {
             Favourite(navController)
@@ -171,10 +170,10 @@ fun Navigation(navController: NavHostController) {
             com.example.test.ui.search.previewResults()
         }
         composable("livescreen") {
-            previewLive()
+            previewLive(rememberNavController())
         }
         composable("upcoming") {
-            previewUpcoming()
+            Upcoming(navController)
         }
         composable("Eventdetail") {
             EventDetailsView(navController)

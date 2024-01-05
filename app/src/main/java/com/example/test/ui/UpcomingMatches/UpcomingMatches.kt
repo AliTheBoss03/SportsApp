@@ -1,6 +1,7 @@
 package com.example.test.ui.UpcomingMatches
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -27,9 +29,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.test.R
 
 fun Row(modifier: Modifier, verticalArrangement: Arrangement.Vertical, any: Any?) {
@@ -108,12 +114,14 @@ fun SearchFunktion() {
 }
 
 @Composable
-fun MatchRow1() {
+fun MatchRow1(navController:NavController) {
     Column {
+
 
         Spacer(modifier = Modifier.height(100.dp)) // Tilføjer et mellemrum fra searhbar toppen
 
         Row(
+
             modifier = Modifier
                 .height(60.dp)
                 // Brug fillMaxWidth for at undgå at hardkode bredden
@@ -121,22 +129,28 @@ fun MatchRow1() {
                 // Tilføj afrundede hjørner her
                 .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
                 .background(Color.White)
-                .padding(9.dp),
+                .padding(9.dp)
+            .clickable {
+            // Naviger til LineUp skærmen
+            navController.navigate("LineUp")
+        },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
+
+
 
         ) {
             // Hold 1 logo og navn
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(
-                    painter = painterResource(id = R.drawable.chelsea), // holdlogo
+                    painter = painterResource(id = R.drawable.liverpool), // holdlogo
                     contentDescription = "Team One Logo",
                     modifier = Modifier
                         .height(61.dp)
                         .width(61.dp)
                 )
                 Text(
-                    text = "CHE",
+                    text = "LFC",
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
@@ -145,13 +159,13 @@ fun MatchRow1() {
             // Kamp tid og dato
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "08:00",
+                    text = "09:00",
                     fontWeight = FontWeight.Bold,
                     fontSize = 17.sp
                 )
 
                 Text(
-                    text = "12 May",
+                    text = "23 May",
                     fontWeight = FontWeight.Bold,
                     fontSize = 17.sp,
                     color = Color(0xffE8791D))
@@ -162,14 +176,14 @@ fun MatchRow1() {
             // Hold 2 logo og navn
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(
-                    painter = painterResource(id = R.drawable.arsenal), // Erstat med det korrekte holdlogo
+                    painter = painterResource(id = R.drawable.crystal), // Erstat med det korrekte holdlogo
                     contentDescription = "Team Two Logo",
                     modifier = Modifier
                         .height(61.dp)
                         .width(61.dp)
                 )
                 Text(
-                    text = "ARS",
+                    text = "WAT",
                     fontWeight = FontWeight.Bold,
                     fontSize = 14.sp
                 )
@@ -178,8 +192,15 @@ fun MatchRow1() {
     }
 }
 
+
+
+
+
+
+
+
 @Composable
-fun MatchRow2() {
+fun MatchRow2(navController: NavController) {
     Column {
 
         Spacer(modifier = Modifier.height(170.dp)) // Tilføjer et mellemrum fra searhbar toppen
@@ -192,7 +213,12 @@ fun MatchRow2() {
                 // Tilføj afrundede hjørner her
                 .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
                 .background(Color.White)
-                .padding(9.dp),
+                .padding(9.dp)
+            .clickable {
+            // Naviger til LineUp skærmen
+            navController.navigate("LineUp")
+        },
+
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -250,7 +276,7 @@ fun MatchRow2() {
 }
 
 @Composable
-fun MatchRow3() {
+fun MatchRow3(navController: NavController) {
     Column {
 
         Spacer(modifier = Modifier.height(240.dp)) // Tilføjer et mellemrum fra searhbar toppen
@@ -263,7 +289,11 @@ fun MatchRow3() {
                 // Tilføj afrundede hjørner her
                 .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
                 .background(Color.White)
-                .padding(9.dp),
+                .padding(9.dp)
+                .clickable {
+                    // Naviger til LineUp skærmen
+                    navController.navigate("LineUp")
+                },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -320,7 +350,7 @@ fun MatchRow3() {
     }
 }
 @Composable
-fun MatchRow4() {
+fun MatchRow4(navController: NavController) {
     Column {
 
         Spacer(modifier = Modifier.height(310.dp)) // Tilføjer et mellemrum fra searhbar toppen
@@ -333,7 +363,11 @@ fun MatchRow4() {
                 // Tilføj afrundede hjørner her
                 .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
                 .background(Color.White)
-                .padding(9.dp),
+                .padding(9.dp)
+                .clickable {
+                    // Naviger til LineUp skærmen
+                    navController.navigate("LineUp")
+                },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -391,7 +425,7 @@ fun MatchRow4() {
 }
 
 @Composable
-fun MatchRow5() {
+fun MatchRow5(navController: NavController) {
     Column {
 
         Spacer(modifier = Modifier.height(380.dp)) // Tilføjer et mellemrum fra searhbar toppen
@@ -462,7 +496,7 @@ fun MatchRow5() {
 }
 
 @Composable
-fun MatchRow6() {
+fun MatchRow6(navController: NavController) {
     Column {
 
         Spacer(modifier = Modifier.height(450.dp)) // Tilføjer et mellemrum fra searhbar toppen
@@ -475,7 +509,11 @@ fun MatchRow6() {
                 // Tilføj afrundede hjørner her
                 .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
                 .background(Color.White)
-                .padding(9.dp),
+                .padding(9.dp)
+                .clickable {
+                    // Naviger til LineUp skærmen
+                    navController.navigate("LineUp")
+                },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -533,7 +571,7 @@ fun MatchRow6() {
 }
 
 @Composable
-fun MatchRow7() {
+fun MatchRow7(navController: NavController) {
     Column {
 
         Spacer(modifier = Modifier.height(520.dp)) // Tilføjer et mellemrum fra searhbar toppen
@@ -546,7 +584,11 @@ fun MatchRow7() {
                 // Tilføj afrundede hjørner her
                 .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
                 .background(Color.White)
-                .padding(9.dp),
+                .padding(9.dp)
+                .clickable {
+                    // Naviger til LineUp skærmen
+                    navController.navigate("LineUp")
+                },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -604,7 +646,7 @@ fun MatchRow7() {
 }
 
 @Composable
-fun MatchRow8() {
+fun MatchRow8(navController: NavController) {
     Column {
 
         Spacer(modifier = Modifier.height(590.dp)) // Tilføjer et mellemrum fra searhbar toppen
@@ -617,7 +659,11 @@ fun MatchRow8() {
                 // Tilføj afrundede hjørner her
                 .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
                 .background(Color.White)
-                .padding(9.dp),
+                .padding(9.dp)
+                .clickable {
+                    // Naviger til LineUp skærmen
+                    navController.navigate("LineUp")
+                },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -674,7 +720,7 @@ fun MatchRow8() {
     }
 }
 @Composable
-fun MatchRow9() {
+fun MatchRow9(navController: NavController) {
     Column {
 
         Spacer(modifier = Modifier.height(660.dp)) // Tilføjer et mellemrum fra searhbar toppen
@@ -687,7 +733,11 @@ fun MatchRow9() {
                 // Tilføj afrundede hjørner her
                 .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
                 .background(Color.White)
-                .padding(9.dp),
+                .padding(9.dp)
+                .clickable {
+                    // Naviger til LineUp skærmen
+                    navController.navigate("LineUp")
+                },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -744,7 +794,7 @@ fun MatchRow9() {
     }
 }
 @Composable
-fun MatchRow10() {
+fun MatchRow10(navController: NavController) {
     Column {
 
         Spacer(modifier = Modifier.height(730.dp)) // Tilføjer et mellemrum fra searhbar toppen
@@ -757,7 +807,11 @@ fun MatchRow10() {
                 // Tilføj afrundede hjørner her
                 .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
                 .background(Color.White)
-                .padding(9.dp),
+                .padding(9.dp)
+                .clickable {
+                    // Naviger til LineUp skærmen
+                    navController.navigate("LineUp")
+                },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -813,9 +867,10 @@ fun MatchRow10() {
         }
     }
 }
-@Preview
+
+
 @Composable
-fun previewUpcoming() {
+fun Upcoming(navController: NavHostController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -832,17 +887,21 @@ fun previewUpcoming() {
     {
         logo()
         SearchFunktion()
-        MatchRow1()
-        MatchRow2()
-        MatchRow3()
-        MatchRow4()
-        MatchRow5()
-        MatchRow6()
-        MatchRow7()
-        MatchRow8()
-        MatchRow9()
-        MatchRow10()
+        MatchRow1(navController)
+        MatchRow2(navController)
+        MatchRow3(navController)
+        MatchRow4(navController)
+        MatchRow5(navController)
+        MatchRow6(navController)
+        MatchRow7(navController)
+        MatchRow8(navController)
+        MatchRow9(navController)
+        MatchRow10(navController)
         }
     }
 
-
+@Preview
+@Composable
+private fun PreviewUpcoming() {
+    Upcoming(navController = rememberNavController())
+}
