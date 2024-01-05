@@ -1,5 +1,9 @@
 package com.example.test
 
+import AboutUs
+import ContactUs
+import PrivacyPolicy
+import TermsAndConditions
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -44,6 +48,7 @@ import com.example.test.ui.frontpage.FrontPage
 import com.example.test.ui.news.NewsScreenPreview
 import com.example.test.ui.results.previewResults
 import com.example.test.ui.settings.PreviewSettingsPage
+import com.example.test.ui.settings.SettingsPage
 import com.example.test.ui.theme.TestTheme
 
 data class BottomNavigationItem(
@@ -157,7 +162,7 @@ fun Navigation(navController: NavHostController) {
             PreviewPremierLeagueScreen()
         }
         composable("settings") {
-            PreviewSettingsPage()
+            SettingsPage(navController)
         }
         composable("news") {
             NewsScreenPreview()
@@ -177,6 +182,18 @@ fun Navigation(navController: NavHostController) {
         }
         composable("LineUp") {
             LineUpView(navController)
+        }
+        composable("about us") {
+            AboutUs(navController)
+        }
+        composable("contact us") {
+            ContactUs(navController)
+        }
+        composable("Privacy Policy") {
+            PrivacyPolicy(navController)
+        }
+        composable("terms and conditions") {
+            TermsAndConditions(navController)
         }
     }
 }
