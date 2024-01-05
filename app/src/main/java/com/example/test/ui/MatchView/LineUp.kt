@@ -294,7 +294,7 @@ fun LineUP(navController:NavController) {
                 color = androidx.compose.ui.graphics.Color.White,
                 textAlign = TextAlign.Right
             )
-            Spacer(modifier = Modifier.weight(1f))
+
 
         }
 

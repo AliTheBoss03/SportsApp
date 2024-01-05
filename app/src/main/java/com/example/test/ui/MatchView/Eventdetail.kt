@@ -40,6 +40,7 @@ fun LineUP2(navController:NavController) {
             .height(125.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
+
     ) {
 
         Row(
@@ -47,100 +48,79 @@ fun LineUP2(navController:NavController) {
                 .fillMaxWidth()
                 .padding(top = 85.dp)
                 .height(125.dp)
-                .border(2.dp, Color.White).
-                padding(start = 20.dp),
-
+                .border(2.dp, Color.White)
+                .padding(start = 10.dp),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
 
         ) {
-
             OutlinedButton(
                 onClick = { navController.navigate("LineUp") },
                 modifier = Modifier.padding(1.dp)
-            ) {
 
+
+            ) {
                 Text(
                     text = "Line-Up",
                     modifier = Modifier,
                     color = Color.White,
                     textAlign = TextAlign.Start,
-
-                    )
-
-
-                Spacer(modifier = Modifier.width(35.dp))
-
-
-                Box(
-                    modifier = Modifier
-                        .width(2.dp)
-                        .height(20.dp)
-                        .background(androidx.compose.ui.graphics.Color.White)
                 )
-                Spacer(modifier = Modifier.width(22.dp))
-                Text(
-                    text = "Event details",
-                    color = androidx.compose.ui.graphics.Color.White,
-                    textAlign = TextAlign.Right ,
-                    fontWeight = FontWeight.Bold
-                )
-
-
-                Spacer(modifier = Modifier.width(35.dp))
-                Box(
-                    modifier = Modifier
-                        .width(2.dp)
-                        .height(20.dp)
-                        .background(androidx.compose.ui.graphics.Color.White)
-                )
-
-
-                Spacer(modifier = Modifier.width(35.dp))
-
-                Text(
-                    text = "Table",
-                    color = androidx.compose.ui.graphics.Color.White,
-                    textAlign = TextAlign.Right
-                )
-
-
-
 
             }
+
+            Spacer(modifier = Modifier.width(20.dp))
+
+
+            Box(
+                modifier = Modifier
+                    .width(2.dp)
+                    .height(20.dp)
+                    .background(androidx.compose.ui.graphics.Color.White)
+
+
+            )
+
+            Spacer(modifier = Modifier.width(22.dp))
+
+
+            Text(
+                text = "Event Details",
+                color = androidx.compose.ui.graphics.Color.White,
+                textAlign = TextAlign.Start,
+                fontWeight = FontWeight.Bold
+
+
+
+                )
+
+
+
+
+            Spacer(modifier = Modifier.width(35.dp))
+
+
+            Box(
+                modifier = Modifier
+                    .width(2.dp)
+                    .height(20.dp)
+                    .background(androidx.compose.ui.graphics.Color.White)
+
+
+            )
+
+            Spacer(modifier = Modifier.width(35.dp))
+            Text(
+                text = "Table",
+                color = androidx.compose.ui.graphics.Color.White,
+                textAlign = TextAlign.Right
+            )
+
+
         }
 
-        Spacer(modifier = Modifier.width(25.dp))
-        Box(
-            modifier = Modifier
-                .width(2.dp)
-                .height(20.dp)
-                .background(androidx.compose.ui.graphics.Color.White)
-        )
-
-
-        Spacer(modifier = Modifier.width(25.dp))
-        Text(
-            text = "Table",
-            color = androidx.compose.ui.graphics.Color.White,
-            textAlign = TextAlign.Right
-        )
-
-
-
-
-
-
-
-
     }
-
-
-
-    }
-
-
-
+}
 
 @Composable
 fun Stadium() {
