@@ -91,8 +91,7 @@ fun LineUP2(navController:NavController) {
                 fontWeight = FontWeight.Bold
 
 
-
-                )
+            )
 
 
 
@@ -109,18 +108,24 @@ fun LineUP2(navController:NavController) {
 
             )
 
-            Spacer(modifier = Modifier.width(35.dp))
-            Text(
-                text = "Table",
-                color = androidx.compose.ui.graphics.Color.White,
-                textAlign = TextAlign.Right
-            )
 
+            Spacer(modifier = Modifier.width(10.dp))
+            OutlinedButton(
+                onClick = { navController.navigate("table") },
+                modifier = Modifier.padding(1.dp)
+            ) {
+                Text(
+                    text = "Table",
+                    color = androidx.compose.ui.graphics.Color.White,
+                    textAlign = TextAlign.Right
 
+                )
+            }
         }
-
     }
 }
+
+
 
 @Composable
 fun Stadium() {

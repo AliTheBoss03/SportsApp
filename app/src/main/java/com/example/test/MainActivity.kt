@@ -46,7 +46,6 @@ import com.example.test.ui.favourite.Favourite
 import com.example.test.ui.frontpage.FrontPage
 import com.example.test.ui.news.NewsScreenPreview
 import com.example.test.ui.results.ResultsView
-import com.example.test.ui.settings.PreviewSettingsPage
 import com.example.test.ui.settings.SettingsPage
 import com.example.test.ui.theme.TestTheme
 
@@ -149,7 +148,7 @@ fun Navigation(navController: NavHostController) {
             FrontPage(navController)
         }
         composable("results") {
-            ResultsView(rememberNavController())
+            ResultsView(navController)
         }
         composable("favourites") {
             Favourite(navController)
@@ -170,7 +169,7 @@ fun Navigation(navController: NavHostController) {
             com.example.test.ui.search.previewResults()
         }
         composable("livescreen") {
-            previewLive(rememberNavController())
+            previewLive(navController)
         }
         composable("upcoming") {
             Upcoming(navController)
@@ -194,6 +193,9 @@ fun Navigation(navController: NavHostController) {
         composable("terms and conditions") {
             TermsAndConditions(navController)
         }
+
+
+
     }
 }
 

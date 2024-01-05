@@ -4,6 +4,7 @@ package com.example.test.ui.MatchView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -288,12 +289,17 @@ fun LineUP(navController:NavController) {
 
             )
 
-            Spacer(modifier = Modifier.width(25.dp))
-            Text(
-                text = "Table",
-                color = androidx.compose.ui.graphics.Color.White,
-                textAlign = TextAlign.Right
-            )
+            OutlinedButton(
+                onClick = { navController.navigate("table") },
+                modifier = Modifier.padding(1.dp)
+            ) {
+                Text(
+                    text = "Table",
+                    color = androidx.compose.ui.graphics.Color.White,
+                    textAlign = TextAlign.Right
+
+                )
+            }
 
 
         }

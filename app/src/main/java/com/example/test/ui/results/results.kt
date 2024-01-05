@@ -256,10 +256,8 @@ fun PremBar(navController: NavController) {
                 .fillMaxWidth()
                 .height(76.dp)
                 .border(1.dp, Color.Black)
-
-            .clickable {
-            // Naviger til LineUp skærmen
-            navController.navigate("LineUp")
+                .clickable {
+                    navController.navigate("LineUp")
         },
             verticalArrangement = Arrangement.SpaceBetween
 
@@ -336,7 +334,10 @@ fun PremBar(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, Color.Black),
+                .border(1.dp, Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
 
             verticalArrangement = Arrangement.SpaceBetween
         ){
@@ -405,7 +406,10 @@ fun PremBar(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, Color.Black),
+                .border(1.dp, Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -471,7 +475,10 @@ fun PremBar(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, Color.Black),
+                .border(1.dp, Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -536,7 +543,10 @@ fun PremBar(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, Color.Black),
+                .border(1.dp, Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
             verticalArrangement = Arrangement.SpaceBetween
         ){
 

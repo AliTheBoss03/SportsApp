@@ -331,7 +331,10 @@ fun PremBar(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
 
             verticalArrangement = Arrangement.SpaceBetween
         ){
@@ -400,7 +403,10 @@ fun PremBar(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -466,7 +472,10 @@ fun PremBar(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -531,7 +540,10 @@ fun PremBar(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
