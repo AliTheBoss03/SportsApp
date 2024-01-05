@@ -63,6 +63,7 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.1.2")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
     implementation("com.android.volley:volley:1.2.1")
+    implementation("org.chromium.net:cronet-embedded:113.5672.61")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -74,9 +75,11 @@ dependencies {
 
     implementation ("androidx.navigation:navigation-compose:2.4.0-alpha10")
     implementation("androidx.navigation:navigation-compose:$nav_version")
+
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.7.1")
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
+
     //gson
     implementation("com.squareup.retrofit2:converter-gson:2.7.1")
     //coil
