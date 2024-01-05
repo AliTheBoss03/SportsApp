@@ -36,8 +36,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.test.Livescreen.previewLive
 import com.example.test.ui.League.PreviewPremierLeagueScreen
-import com.example.test.ui.MatchView.EventDetailsView
-import com.example.test.ui.MatchView.LineUpView
 import com.example.test.ui.UpcomingMatches.previewUpcoming
 import com.example.test.ui.favourite.Favourite
 import com.example.test.ui.frontpage.FrontPage
@@ -45,16 +43,16 @@ import com.example.test.ui.news.NewsScreenPreview
 import com.example.test.ui.results.previewResults
 import com.example.test.ui.settings.PreviewSettingsPage
 import com.example.test.ui.theme.TestTheme
-import org.chromium.base.Callback
-import org.chromium.base.Log
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Tag
 
+data class BottomNavigationItem(
+    val title: String,
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector,
+    val hasNews: Boolean,
+    val badgeCount: Int? = null
+)
 
-
+const val BaseUrl = "https://www.thesportsdb.com/"
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -106,22 +104,9 @@ class MainActivity : ComponentActivity() {
 
 
             }
-
-
-        getMyData()
+       // getMyData()
             }
-
-    data class BottomNavigationItem(
-        val title: String,
-        val selectedIcon: ImageVector,
-        val unselectedIcon: ImageVector,
-        val hasNews: Boolean,
-        val badgeCount: Int? = null
-    )
-
-    private val BaseUrl = "https://www.thesportsdb.com/"
-    private val Tag: String = "CHECK_RESPONSE"
-
+    /**
     private fun getMyData() {
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -132,9 +117,7 @@ class MainActivity : ComponentActivity() {
         val retrofitData = retrofitBuilder.getData()
 
         retrofitData.enqueue(object : Callback<List<Table>?> {
-             fun onResponse(
-                 call: Call<List<Table>?>,
-                            response: Response<List<Table>?>) {
+            override fun onResponse(call: Call<List<Table>?>, response: Response<List<Table>?>) {
                 val responseBody = response.body()!!
 
                 val myStringBuilder = StringBuilder()
@@ -145,20 +128,12 @@ class MainActivity : ComponentActivity() {
 
             }
 
-            fun onFailure(call: Call<List<Table>?>, t: Throwable) {
+            override fun onFailure(call: Call<List<Table>?>, t: Throwable) {
                 Log.d("MainActivity","onFailure: "+t.message)
-            }
-
-            override fun onResult(result: List<Table>?) {
-                TODO("Not yet implemented")
             }
         })
     }
-
-}
-
-private fun Any.enqueue(callback: Callback<List<Table>?>) {
-
+    */
 }
 
 @Composable
@@ -194,13 +169,6 @@ fun Navigation(navController: NavHostController) {
         composable("upcoming") {
             previewUpcoming()
         }
-        composable("EventDetail") {
-            EventDetailsView(navController )
-        }
-        composable("LineUp") {
-            LineUpView(navController )
-        }
-
     }
 }
 
