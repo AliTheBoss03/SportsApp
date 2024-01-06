@@ -267,22 +267,25 @@ fun PremBar(navController: NavController) {
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .height(25.dp),
+                    .height(30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
                 Row (horizontalArrangement = Arrangement.Start) {
                     Text(text = "Manchester United"
                         , color = androidx.compose.ui.graphics.Color.White
                         , textAlign = TextAlign.Start)
-                    Spacer(modifier = Modifier.width(200.dp))
+
+
+                    Spacer(modifier = Modifier.width(180.dp))
 
 
                     Column {
-                        Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
+                        Spacer(modifier = Modifier.height(11.dp)) // Move FT text slightly down
                         Text(text = "79'"
                             , color = androidx.compose.ui.graphics.Color.White
                             , textAlign = TextAlign.Start)
                     }
+
 
                 }
                 Text(text = "1"
@@ -291,14 +294,13 @@ fun PremBar(navController: NavController) {
 
             }
 
+
             Row (
                 Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
-                    .height(38.dp),
+                    .height(35.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
-
-
 
 
 
@@ -343,7 +345,7 @@ fun PremBar(navController: NavController) {
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .height(25.dp),
+                    .height(30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ){
@@ -414,7 +416,7 @@ fun PremBar(navController: NavController) {
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .height(25.dp),
+                    .height(30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ){
@@ -483,7 +485,7 @@ fun PremBar(navController: NavController) {
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .height(25.dp),
+                    .height(30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ){
@@ -551,7 +553,7 @@ fun PremBar(navController: NavController) {
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .height(25.dp),
+                    .height(30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ){
