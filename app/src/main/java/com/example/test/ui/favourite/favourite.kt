@@ -157,6 +157,10 @@ fun FavouriteMatches(navController: NavController) {
                     , color = Color.White
                     , textAlign = TextAlign.Right)
             }
+
+
+
+
             Row (
                 Modifier
                     .fillMaxWidth()
@@ -213,7 +217,7 @@ fun FavouriteMatches(navController: NavController) {
                 .height(20.dp),
         horizontalArrangement = Arrangement.End
         ){
-            Text(text = "FT"
+            Text(text = "07/01"
                 , color = Color.White,
 
             modifier = Modifier.align(Alignment.CenterVertically))
