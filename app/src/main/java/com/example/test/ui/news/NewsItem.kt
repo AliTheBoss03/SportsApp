@@ -146,7 +146,7 @@ fun NewsScreen(navController: NavHostController, newsItems: List<NewsItem> = lis
             newsItems.forEach { news ->
                 NewsArticle(news) {
                     // Når en nyhedsartikel klikkes, naviger til detaljesiden
-                    navController.navigate("nyhedDetail/${news.title}")
+                    navController.navigate("nyhedDetail/${news .title}")
                 }
             }
         }

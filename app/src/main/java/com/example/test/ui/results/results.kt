@@ -10,14 +10,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -89,7 +92,7 @@ fun SearchBar(onSearch: (String) -> Unit) {
         placeholder = { Text("Search") },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(50.dp,0.dp,10.dp,10.dp)
+            .padding(50.dp, 0.dp, 10.dp, 10.dp)
             .height(30.dp)
             .clip(RoundedCornerShape(corner = CornerSize(20.dp))),
 
@@ -109,9 +112,9 @@ fun SearchFunktion() {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(16.dp)
-            .height(100.dp)
+            .height(50.dp)
 
     ) {
 
@@ -134,7 +137,7 @@ fun SearchFunktion() {
 @Composable
 fun kalender() {
     LazyRow(
-        content = {
+            content = {
             items(5) { index ->
                 val text = when (index) {
                     0 -> "  Sat 30"
@@ -146,6 +149,7 @@ fun kalender() {
                     else -> ""
                 }
                 kalenderLaylout(text,80.dp)
+
 
 
             }
@@ -205,96 +209,98 @@ fun PremBar(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .height(75.dp)
             .padding(top = 175.dp),
 
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top,
 
 
-
-    ) {
+        ) {
 
 
         //England bar
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color(android.graphics.Color.parseColor("#000000")),
-                        Color(android.graphics.Color.parseColor("#000000")),
-                        Color(android.graphics.Color.parseColor("#000000"))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color(android.graphics.Color.parseColor("#000000")),
+                            Color(android.graphics.Color.parseColor("#000000")),
+                            Color(android.graphics.Color.parseColor("#000000"))
+                        )
                     )
-                )
-            ),
-            )
+                ),
+        )
 
 
         {
 
-            Image(painter = painterResource(id = R.drawable.england),
+            Image(
+                painter = painterResource(id = R.drawable.england),
                 contentDescription = "image",
                 Modifier
                     .padding(all = 20.dp)
                     .width(25.dp)
-                    .height(20.dp))
+                    .height(20.dp)
+            )
 
-            Column(modifier = Modifier
-                .padding(top = 10.dp)
-                .padding(end = 10.dp) ){
-                Text(text ="Premier League", color = Color.White, fontWeight = FontWeight.Bold )
-                Text(text = "England", color = Color.White )
+            Column(
+                modifier = Modifier
+                    .padding(top = 10.dp)
+                    .padding(end = 10.dp)
+            ) {
+                Text(text = "Premier League", color = Color.White, fontWeight = FontWeight.Bold)
+                Text(text = "England", color = Color.White)
             }
         }
 
 
         //Resultater af Man UTD
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
                 .border(1.dp, Color.Black)
                 .clickable {
                     navController.navigate("LineUp")
-        },
+                },
             verticalArrangement = Arrangement.SpaceBetween
 
 
+        ) {
 
-        ){
 
-
-            Row (
+            Row(
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
                     .height(25.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
-            ){
-                Row (horizontalArrangement = Arrangement.Start) {
-                    Text(text = "Manchester United"
-                        , color = Color.White
-                        , textAlign = TextAlign.Start)
+            ) {
+                Row(horizontalArrangement = Arrangement.Start) {
+                    Text(
+                        text = "Manchester United", color = Color.White, textAlign = TextAlign.Start
+                    )
                     Spacer(modifier = Modifier.width(200.dp))
 
 
                     Column {
                         Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                        Text(text = "FT"
-                            , color = Color.White
-                            , textAlign = TextAlign.Start)
+                        Text(
+                            text = "FT", color = Color.White, textAlign = TextAlign.Start
+                        )
                     }
 
                 }
-                Text(text = "1"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
+                Text(
+                    text = "1", color = Color.White, textAlign = TextAlign.Right
+                )
 
             }
 
-            Row (
+            Row(
                 Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
@@ -302,35 +308,31 @@ fun PremBar(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
 
 
-
-
-
-            ){
-                Text(text = "Luton City"
-                    , color = Color.White
+            ) {
+                Text(
+                    text = "Luton City", color = Color.White
                 )
-                Text(text = "1"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
+                Text(
+                    text = "1", color = Color.White, textAlign = TextAlign.Right
+                )
             }
 
         }
 
         //Mellemrum for plads
-        Row (
+        Row(
             Modifier
                 .fillMaxWidth()
                 .padding(all = 5.dp)
                 .height(5.dp),
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
-
+        ) {
 
 
         }
 
         //Bunrley
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
@@ -340,120 +342,51 @@ fun PremBar(navController: NavController) {
                 },
 
             verticalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
 
-            Row (
+            Row(
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
                     .height(25.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
-            ){
-                Text(text = "Burnley"
-                    , color = Color.White
-                    , textAlign = TextAlign.Start)
+            ) {
+                Text(
+                    text = "Burnley", color = Color.White, textAlign = TextAlign.Start
+                )
                 Spacer(modifier = Modifier.width(200.dp))
 
 
                 Column {
                     Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(text = "FT"
-                        , color = Color.White
-                        , textAlign = TextAlign.Start)
+                    Text(
+                        text = "FT", color = Color.White, textAlign = TextAlign.Start
+                    )
                 }
 
 
 
-                Text(text = "1"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
+                Text(
+                    text = "1", color = Color.White, textAlign = TextAlign.Right
+                )
 
 
             }
-            Row (
+            Row(
                 Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
                     .height(38.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
-            ){
-                Text(text = "Arsenal"
-                    , color = Color.White
+            ) {
+                Text(
+                    text = "Arsenal", color = Color.White
                 )
-                Text(text = "3"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
-                }
-            }
-
-
-        //Mellemrum for plads
-        Row (
-            Modifier
-                .fillMaxWidth()
-                .padding(all = 5.dp)
-                .height(10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ){
-        }
-
-
-
-        //Tottenham
-        Column (
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(76.dp)
-                .border(1.dp, Color.Black)
-                .clickable {
-                    navController.navigate("LineUp")
-                },
-            verticalArrangement = Arrangement.SpaceBetween
-        ){
-
-            Row (
-                Modifier
-                    .fillMaxWidth()
-                    .padding(all = 10.dp)
-                    .height(25.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ){
-                Text(text = "Tottenham"
-                    , color = Color.White
-                    , textAlign = TextAlign.Start)
-                Spacer(modifier = Modifier.width(180.dp))
-
-
-                Column {
-                    Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(text = "FT"
-                        , color = Color.White
-                        , textAlign = TextAlign.Start)
-                }
-
-
-
-                Text(text = "5"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
-            }
-            Row (
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .height(38.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ){
-                Text(text = "Chealsea"
-                    , color = Color.White
+                Text(
+                    text = "3", color = Color.White, textAlign = TextAlign.Right
                 )
-                Text(text = "0"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
             }
         }
 
@@ -465,13 +398,12 @@ fun PremBar(navController: NavController) {
                 .padding(all = 5.dp)
                 .height(10.dp),
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
         }
 
 
-
-        //Westham
-        Column (
+        //Tottenham
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
@@ -480,48 +412,116 @@ fun PremBar(navController: NavController) {
                     navController.navigate("LineUp")
                 },
             verticalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
 
-            Row (
+            Row(
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
                     .height(25.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
-            ){
-                Text(text = "Westham"
-                    , color = Color.White
-                    , textAlign = TextAlign.Start)
-                Spacer(modifier = Modifier.width(185.dp))
+            ) {
+                Text(
+                    text = "Tottenham", color = Color.White, textAlign = TextAlign.Start
+                )
+                Spacer(modifier = Modifier.width(180.dp))
+
 
                 Column {
                     Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(text = "FT"
-                        , color = Color.White
-                        , textAlign = TextAlign.Start)
+                    Text(
+                        text = "FT", color = Color.White, textAlign = TextAlign.Start
+                    )
                 }
 
 
 
-                Text(text = "3"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
+                Text(
+                    text = "5", color = Color.White, textAlign = TextAlign.Right
+                )
             }
-            Row (
+            Row(
                 Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
                     .height(38.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
-            ){
-                Text(text = "Nottingham"
-                    , color = Color.White
+            ) {
+                Text(
+                    text = "Chealsea", color = Color.White
                 )
-                Text(text = "2"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
+                Text(
+                    text = "0", color = Color.White, textAlign = TextAlign.Right
+                )
+            }
+        }
+
+
+        //Mellemrum for plads
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(all = 5.dp)
+                .height(10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+        }
+
+
+        //Westham
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(76.dp)
+                .border(1.dp, Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(all = 10.dp)
+                    .height(25.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+
+            ) {
+                Text(
+                    text = "Westham", color = Color.White, textAlign = TextAlign.Start
+                )
+                Spacer(modifier = Modifier.width(185.dp))
+
+                Column {
+                    Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
+                    Text(
+                        text = "FT", color = Color.White, textAlign = TextAlign.Start
+                    )
+                }
+
+
+
+                Text(
+                    text = "3", color = Color.White, textAlign = TextAlign.Right
+                )
+            }
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp)
+                    .height(38.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+
+            ) {
+                Text(
+                    text = "Nottingham", color = Color.White
+                )
+                Text(
+                    text = "2", color = Color.White, textAlign = TextAlign.Right
+                )
 
 
             }
@@ -534,12 +534,12 @@ fun PremBar(navController: NavController) {
                 .padding(all = 5.dp)
                 .height(10.dp),
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
         }
 
 
         //Brigthon
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
@@ -548,103 +548,99 @@ fun PremBar(navController: NavController) {
                     navController.navigate("LineUp")
                 },
             verticalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
 
-            Row (
+            Row(
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
                     .height(25.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
-            ){
-                Text(text = "Brigthon"
-                    , color = Color.White
-                    , textAlign = TextAlign.Start)
+            ) {
+                Text(
+                    text = "Brigthon", color = Color.White, textAlign = TextAlign.Start
+                )
                 Spacer(modifier = Modifier.width(190.dp))
 
 
 
                 Column {
                     Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(text = "FT"
-                        , color = Color.White
-                        , textAlign = TextAlign.Start)
+                    Text(
+                        text = "FT", color = Color.White, textAlign = TextAlign.Start
+                    )
 
                 }
 
 
 
 
-                Text(text = "2"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
+                Text(
+                    text = "2", color = Color.White, textAlign = TextAlign.Right
+                )
             }
 
-            Row (
+            Row(
                 Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
                     .height(38.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
-            ){
-                Text(text = "Liverpool"
-                    , color = Color.White
+            ) {
+                Text(
+                    text = "Liverpool", color = Color.White
                 )
-                Text(text = "3"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
-
+                Text(
+                    text = "3", color = Color.White, textAlign = TextAlign.Right
+                )
 
 
             }
 
 
+
+
         }
 
-
-
     }
-
-
-
-
 }
-
-
 
 @Composable
-fun ResultsView (navController: NavHostController) {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(
-            brush = Brush.verticalGradient(
-                colors = listOf(
-                    Color(android.graphics.Color.parseColor("#000000")),
-                    Color(android.graphics.Color.parseColor("#FF9900"))
-                )
-            )
-        )
-    ){
-        logo()
-        PremBar(navController)
-        kalender()
-        SearchFunktion()
+fun ResultsView(navController: NavHostController) {
+    // Anvender Column som den yderste container
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
 
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color(android.graphics.Color.parseColor("#000000")),
+                            Color(android.graphics.Color.parseColor("#FF9900"))
+                        )
+                    )
+                )
+        ) {
+            logo()
+            SearchFunktion()
+
+            PremBar(navController)
+            kalender()
+
+        }
 
     }
-
-
-
-
 }
+
 @Preview
 @Composable
 private fun previewResult() {
     ResultsView(navController = rememberNavController())
 }
-
-
-
-

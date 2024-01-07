@@ -1,4 +1,4 @@
-package com.example.test.Livescreen
+package com.example.test.ui.Livescreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,8 +15,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -89,7 +91,7 @@ fun SearchBar(onSearch: (String) -> Unit) {
         placeholder = { Text("Search") },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(50.dp,0.dp,10.dp,10.dp)
+            .padding(50.dp, 0.dp, 10.dp, 10.dp)
             .height(30.dp)
             .clip(RoundedCornerShape(corner = CornerSize(20.dp))),
 
@@ -616,23 +618,32 @@ fun previewLive(navController: NavHostController) {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(
+
             brush = Brush.verticalGradient(
                 colors = listOf(
                     Color(android.graphics.Color.parseColor("#000000")),
                     Color(android.graphics.Color.parseColor("#FF9900"))
+                    )
                 )
             )
-        )
-    ){
-        logo()
-        PremBar(navController)
-        kalender()
-        SearchFunktion()
+
+
+        ){
+            logo()
+            PremBar(navController)
+            kalender()
+            SearchFunktion()
+
+
+
+        }
 
 
     }
 
-}
+
+
+
 @Preview
 @Composable
 private fun LiveView() {

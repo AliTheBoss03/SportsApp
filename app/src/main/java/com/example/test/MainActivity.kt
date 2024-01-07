@@ -37,7 +37,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.test.Livescreen.previewLive
+import com.example.test.ui.Livescreen.previewLive
 import com.example.test.ui.League.PreviewPremierLeagueScreen
 import com.example.test.ui.MatchView.EventDetailsView
 import com.example.test.ui.MatchView.LineUpView
@@ -81,8 +81,8 @@ class MainActivity : ComponentActivity() {
                                     icon = Icons.Filled.DateRange
                                 ),
                                 BottomNavItem(
-                                    name = "Favorites",
-                                    route = "favorites",
+                                    name = "Favourite",
+                                    route = "favourite",
                                     icon = Icons.Filled.Favorite
                                 ),
                                 BottomNavItem(
@@ -150,7 +150,7 @@ fun Navigation(navController: NavHostController) {
         composable("results") {
             ResultsView(navController)
         }
-        composable("favourites") {
+        composable("favourite") {
             Favourite(navController)
         }
         composable("predictions") {
