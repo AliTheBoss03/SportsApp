@@ -41,6 +41,7 @@ import com.example.test.ui.Livescreen.previewLive
 import com.example.test.ui.League.PreviewPremierLeagueScreen
 import com.example.test.ui.MatchView.EventDetailsView
 import com.example.test.ui.MatchView.LineUpView
+import com.example.test.ui.Predection.PreviewMatchScreen
 import com.example.test.ui.UpcomingMatches.Upcoming
 import com.example.test.ui.favourite.Favourite
 import com.example.test.ui.frontpage.FrontPage
@@ -154,7 +155,7 @@ fun Navigation(navController: NavHostController) {
             Favourite(navController)
         }
         composable("predictions") {
-
+            PreviewMatchScreen()
         }
         composable("league") {
             PreviewPremierLeagueScreen()
@@ -176,7 +177,6 @@ fun Navigation(navController: NavHostController) {
         }
         composable("Eventdetail") {
             EventDetailsView(navController)
-
         }
         composable("LineUp") {
             LineUpView(navController)
