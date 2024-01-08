@@ -1,4 +1,4 @@
-package com.example.test
+package com.example.test.model
 
 import retrofit2.Call
 import retrofit2.http.GET

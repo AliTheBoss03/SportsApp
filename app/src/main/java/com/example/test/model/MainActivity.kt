@@ -1,4 +1,4 @@
-package com.example.test
+package com.example.test.model
 
 import AboutUs
 import ContactUs
@@ -102,13 +102,15 @@ class MainActivity : ComponentActivity() {
                             })
                     }
                 ) {
-                    com.example.test.Navigation(navController = navController)
+                    Navigation(navController = navController)
+
 
                 }
             }
 
 
             }
+
        // getMyData()
             }
     /**
@@ -140,6 +142,7 @@ class MainActivity : ComponentActivity() {
     }
     */
 }
+
 
 @Composable
 fun Navigation(navController: NavHostController) {

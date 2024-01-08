@@ -1,4 +1,4 @@
-package com.example.test
+package com.example.test.model
 
 data class Table(
     val dateUpdated: String,
