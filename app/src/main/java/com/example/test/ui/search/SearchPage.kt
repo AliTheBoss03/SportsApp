@@ -64,56 +64,43 @@ fun logo() {
 fun SearchBar(onSearch: (String) -> Unit) {
     var searchText by remember { mutableStateOf("") }
 
-
     TextField(
         value = searchText,
         onValueChange = {
             searchText = it
             onSearch(it)
-
-
+            println("Søgetekst opdateret: $searchText") // Tilføjelse af log statement til debugging
         },
         placeholder = { Text("Search") },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(30.dp,50.dp,10.dp,10.dp)
+            .padding(30.dp, 50.dp, 10.dp, 10.dp)
             .height(30.dp)
-            .clip(RoundedCornerShape(corner = CornerSize(20.dp))),
-
-
-
-        )
-
-
+            .clip(RoundedCornerShape(corner = CornerSize(20.dp)))
+    )
 }
-
 
 @Composable
 fun SearchFunktion() {
     var searchQuery by remember { mutableStateOf("") }
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-
     ) {
-
-
-        // Søgebjælke
-        com.example.test.ui.results.SearchBar(onSearch = { query ->
-            // Opdater logik baseret på søgeordet (query)
+        SearchBar(onSearch = { query ->
             searchQuery = query
-            // F.eks. opdater søgeresultater eller udfør anden relevant logik
+            // Implementer logik for at søge og vise resultater baseret på `searchQuery`
         })
 
-
-
-
+        // Simpel visning af søgeresultater
+        if (searchQuery.isNotEmpty()) {
+            Text(" $searchQuery")
+            // Her kan du tilføje din logik til at vise faktiske søgeresultater
+        }
     }
 }
-
 
 @Preview
 @Composable
@@ -128,14 +115,11 @@ fun previewResults() {
                 )
             )
         )
-
     ){
         logo()
         SearchFunktion()
 
 
+
     }
-
-
 }
-

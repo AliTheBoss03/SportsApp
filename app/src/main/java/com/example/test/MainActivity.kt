@@ -10,7 +10,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
@@ -38,16 +37,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.test.Livescreen.previewLive
+import com.example.test.ui.Livescreen.previewLive
 import com.example.test.ui.League.PreviewPremierLeagueScreen
 import com.example.test.ui.MatchView.EventDetailsView
 import com.example.test.ui.MatchView.LineUpView
-import com.example.test.ui.UpcomingMatches.previewUpcoming
+import com.example.test.ui.UpcomingMatches.Upcoming
 import com.example.test.ui.favourite.Favourite
 import com.example.test.ui.frontpage.FrontPage
 import com.example.test.ui.news.NewsScreenPreview
-import com.example.test.ui.results.previewResults
-import com.example.test.ui.settings.PreviewSettingsPage
+import com.example.test.ui.results.ResultsView
 import com.example.test.ui.settings.SettingsPage
 import com.example.test.ui.theme.TestTheme
 
@@ -83,8 +81,8 @@ class MainActivity : ComponentActivity() {
                                     icon = Icons.Filled.DateRange
                                 ),
                                 BottomNavItem(
-                                    name = "Favorites",
-                                    route = "favorites",
+                                    name = "Favourite",
+                                    route = "favourite",
                                     icon = Icons.Filled.Favorite
                                 ),
                                 BottomNavItem(
@@ -150,9 +148,9 @@ fun Navigation(navController: NavHostController) {
             FrontPage(navController)
         }
         composable("results") {
-            previewResults()
+            ResultsView(navController)
         }
-        composable("favourites") {
+        composable("favourite") {
             Favourite(navController)
         }
         composable("predictions") {
@@ -171,10 +169,10 @@ fun Navigation(navController: NavHostController) {
             com.example.test.ui.search.previewResults()
         }
         composable("livescreen") {
-            previewLive()
+            previewLive(navController)
         }
         composable("upcoming") {
-            previewUpcoming()
+            Upcoming(navController)
         }
         composable("Eventdetail") {
             EventDetailsView(navController)
@@ -195,6 +193,9 @@ fun Navigation(navController: NavHostController) {
         composable("terms and conditions") {
             TermsAndConditions(navController)
         }
+
+
+
     }
 }
 

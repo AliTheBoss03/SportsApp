@@ -80,6 +80,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.7.1")
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
 
+
     //gson
     implementation("com.squareup.retrofit2:converter-gson:2.7.1")
     //coil

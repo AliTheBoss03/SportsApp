@@ -85,4 +85,5 @@ fun NewsDetailScreen(newsItem: NewsItem) {
 @Composable
 fun NewsDetailScreenPreview() {
     NewsDetailScreen(NewsItem("Eden Hazard stopper karrieren ", R.drawable.hazard))
+
 }

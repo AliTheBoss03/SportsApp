@@ -17,11 +17,11 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.test.R
-import com.example.test.Table
 
 @Composable
 fun PremierLeagueHeader() {

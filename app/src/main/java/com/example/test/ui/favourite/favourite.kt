@@ -7,11 +7,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -49,7 +52,7 @@ fun logo() {
 }
 
 @Composable
-fun searchBar(navController: NavController) {
+fun SearchBar(navController: NavController) {
     Column(
         modifier = Modifier
             .height(65.dp)
@@ -60,18 +63,9 @@ fun searchBar(navController: NavController) {
     ) {
         Row (
             modifier = Modifier
-                .width(107.dp)
-                .height(31.dp)
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(android.graphics.Color.parseColor("#FF9900")),
-                            Color(android.graphics.Color.parseColor("#000000")),
-                            Color(android.graphics.Color.parseColor("#FF9900"))
-                        )
-                    )
-                ),
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .width(125.dp)
+                .height(31.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.Top
 
         ) {
@@ -84,27 +78,33 @@ fun searchBar(navController: NavController) {
                         .width(27.dp)
                 )
             }
-            Image(
-                painter = painterResource(id = R.drawable.baseline_search_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.baseline_settings_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
+
+            IconButton(onClick = { navController.navigate("search") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_search_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
+
+            IconButton(onClick = { navController.navigate("settings") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_settings_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
         }
 
     }
 }
 
 @Composable
-fun FavouriteMatches() {
+fun FavouriteMatches(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -152,16 +152,22 @@ fun FavouriteMatches() {
                     , textAlign = TextAlign.Start)
                 Image(painter = painterResource(id = R.drawable.sharp_star_24), contentDescription = "favourite icon",
                     Modifier.padding(end = 270.dp))
+
                 Text(text = "1"
                     , color = Color.White
                     , textAlign = TextAlign.Right)
             }
+
+
+
+
             Row (
                 Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
                     .height(38.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
+
 
             ){
                 Text(text = "Crystal Palace"
@@ -171,20 +177,89 @@ fun FavouriteMatches() {
                     , color = Color.White
                     , textAlign = TextAlign.Right)
             }
+
+
+
+
         }
         Divider(
             Modifier.padding(vertical = 20.dp),
             color = Color(0xFFFFA500),
             thickness = 1.dp
         )
+
+
+                    Row (
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(all = 10.dp)
+                        .height(25.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+
+
+        ){
+            Text(text = "Chelsea"
+                , color = Color.White
+                , textAlign = TextAlign.Start)
+            Image(painter = painterResource(id = R.drawable.sharp_star_24), contentDescription = "favourite icon",
+                Modifier.padding(end = 270.dp))
+            Text(text = "1"
+                , color = Color.White
+                , textAlign = TextAlign.Right)
+
+        }
+
+
+        Row (
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 30.dp)
+                .height(20.dp),
+        horizontalArrangement = Arrangement.End
+        ){
+            Text(text = "07/01"
+                , color = Color.White,
+
+            modifier = Modifier.align(Alignment.CenterVertically))
+
+
+
+        }
+
+
+        Row (
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
+                .padding(top= 12.dp)
+                .height(38.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+
+
+        ){
+            Text(text = "Liverpool"
+                , color = Color.White
+            )
+            Text(text = "1"
+                , color = Color.White
+                , textAlign = TextAlign.Right)
+        }
     }
-}
+    Divider(
+        Modifier.padding(vertical = 360.dp),
+        color = Color(0xFFFFA500),
+        thickness = 1.dp
+    )
+    }
+
+
 
 
 @Composable
 fun Favourite(navController: NavController) {
     Box(modifier = Modifier
         .fillMaxSize()
+        .verticalScroll(rememberScrollState())
         .background(
             brush = Brush.verticalGradient(
                 colors = listOf(
@@ -195,12 +270,12 @@ fun Favourite(navController: NavController) {
         )
     ) {
         logo()
-        searchBar(navController)
-        FavouriteMatches()
+        SearchBar(navController)
+        FavouriteMatches(navController)
     }
 }
 @Preview
 @Composable
-private fun Preview() {
+private fun PreviewFavourite() {
     Favourite(navController = rememberNavController())
 }

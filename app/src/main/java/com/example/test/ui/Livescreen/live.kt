@@ -1,8 +1,9 @@
-package com.example.test.Livescreen
+package com.example.test.ui.Livescreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,8 +15,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -37,6 +40,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.test.R
 
 class live {
@@ -85,7 +91,7 @@ fun SearchBar(onSearch: (String) -> Unit) {
         placeholder = { Text("Search") },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(50.dp,0.dp,10.dp,10.dp)
+            .padding(50.dp, 0.dp, 10.dp, 10.dp)
             .height(30.dp)
             .clip(RoundedCornerShape(corner = CornerSize(20.dp))),
 
@@ -196,7 +202,7 @@ fun kalenderLaylout(text: String, paddingTop: Dp) {
 
 
 @Composable
-fun PremBar() {
+fun PremBar(navController: NavController) {
     // Premierleague Bar
     Column(
         modifier = Modifier
@@ -251,7 +257,11 @@ fun PremBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black)
+                .clickable {
+                    // Naviger til LineUp skærmen
+                    navController.navigate("LineUp")
+                },
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -259,22 +269,25 @@ fun PremBar() {
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .height(25.dp),
+                    .height(30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
                 Row (horizontalArrangement = Arrangement.Start) {
                     Text(text = "Manchester United"
                         , color = androidx.compose.ui.graphics.Color.White
                         , textAlign = TextAlign.Start)
-                    Spacer(modifier = Modifier.width(200.dp))
+
+
+                    Spacer(modifier = Modifier.width(180.dp))
 
 
                     Column {
-                        Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
+                        Spacer(modifier = Modifier.height(11.dp)) // Move FT text slightly down
                         Text(text = "79'"
                             , color = androidx.compose.ui.graphics.Color.White
                             , textAlign = TextAlign.Start)
                     }
+
 
                 }
                 Text(text = "1"
@@ -283,14 +296,13 @@ fun PremBar() {
 
             }
 
+
             Row (
                 Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
-                    .height(38.dp),
+                    .height(35.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
-
-
 
 
 
@@ -323,7 +335,10 @@ fun PremBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
 
             verticalArrangement = Arrangement.SpaceBetween
         ){
@@ -332,7 +347,7 @@ fun PremBar() {
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .height(25.dp),
+                    .height(30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ){
@@ -392,7 +407,10 @@ fun PremBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -400,7 +418,7 @@ fun PremBar() {
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .height(25.dp),
+                    .height(30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ){
@@ -458,7 +476,10 @@ fun PremBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -466,7 +487,7 @@ fun PremBar() {
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .height(25.dp),
+                    .height(30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ){
@@ -523,7 +544,10 @@ fun PremBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(76.dp)
-                .border(1.dp, androidx.compose.ui.graphics.Color.Black),
+                .border(1.dp, androidx.compose.ui.graphics.Color.Black)
+                .clickable {
+                    navController.navigate("LineUp")
+                },
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -531,7 +555,7 @@ fun PremBar() {
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .height(25.dp),
+                    .height(30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ){
@@ -588,30 +612,44 @@ fun PremBar() {
 }
 
 
-@Preview
+
 @Composable
-fun previewLive() {
+fun previewLive(navController: NavHostController) {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(
+
             brush = Brush.verticalGradient(
                 colors = listOf(
                     Color(android.graphics.Color.parseColor("#000000")),
                     Color(android.graphics.Color.parseColor("#FF9900"))
+                    )
                 )
             )
-        )
-    ){
-        logo()
-        PremBar()
-        kalender()
-        SearchFunktion()
+
+
+        ){
+            logo()
+            PremBar(navController)
+            kalender()
+            SearchFunktion()
+
+
+
+        }
 
 
     }
 
 
+
+
+@Preview
+@Composable
+private fun LiveView() {
+    previewLive(navController = rememberNavController())
 }
+
 
 
 

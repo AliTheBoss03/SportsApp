@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.test.R
 import androidx.compose.foundation.clickable
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
@@ -31,19 +32,78 @@ fun logo() {
         modifier = Modifier
             .fillMaxWidth()
             .height(100.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.Start){
 
+
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.Start) {
 
         Image(
             painter = painterResource(id = R.drawable.logo),
-            contentDescription = "Logo",
+            contentDescription = "Image",
             modifier = Modifier
-                .height(42.dp)
-                .width(49.dp)
+                .height(52.dp)
+                .width(52.dp)
+
         )
+
+    }
+
+}
+
+
+@Composable
+fun searchBar(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .height(65.dp)
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.End
+    ) {
+        Row (
+            modifier = Modifier
+                .width(125.dp)
+                .height(31.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.Top
+
+        ) {
+            IconButton(onClick = { navController.navigate("news") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_newspaper_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
+
+            IconButton(onClick = { navController.navigate("search") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_search_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
+
+            IconButton(onClick = { navController.navigate("settings") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_settings_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+
+            }
+        }
+
     }
 }
+
 
 @Composable
 fun NewsScreen(navController: NavHostController, newsItems: List<NewsItem> = listOf(
@@ -69,7 +129,7 @@ fun NewsScreen(navController: NavHostController, newsItems: List<NewsItem> = lis
             modifier = Modifier.padding(16.dp)
         ) {
             logo()
-            searchBar()
+            searchBar(navController)
             Text(
                 text = "Scoreball news",
                 color = Color(0xFFFFA500),
@@ -86,7 +146,7 @@ fun NewsScreen(navController: NavHostController, newsItems: List<NewsItem> = lis
             newsItems.forEach { news ->
                 NewsArticle(news) {
                     // Når en nyhedsartikel klikkes, naviger til detaljesiden
-                    navController.navigate("nyhedDetail/${news.title}")
+                    navController.navigate("nyhedDetail/${news .title}")
                 }
             }
         }
@@ -120,52 +180,13 @@ fun NewsArticle(news: NewsItem, onClick: () -> Unit) {
                     .fillMaxWidth(),
                 contentScale = ContentScale.Crop
             )
+
         }
+
     }
 }
 
 
-@Composable
-fun searchBar() {
-    Row (
-        modifier = Modifier
-            .fillMaxWidth() // Gør Row bredden til den maksimale bredde.
-            .height(65.dp)
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.End // Placerer børnene i enden (højre side) af Row.
-    ) {
-        Row (
-            modifier = Modifier
-                .width(107.dp)
-                .height(31.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Top
-
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.baseline_newspaper_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.baseline_search_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.baseline_settings_24),
-                contentDescription = "Image",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
@@ -176,4 +197,5 @@ fun NewsScreenPreview() {
         NewsItem("Eksempel nyhed 2", R.drawable.hazard),
         NewsItem("Eksempel nyhed 3", R.drawable.rasmush)
     ))
+
 }

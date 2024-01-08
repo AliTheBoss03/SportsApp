@@ -4,6 +4,7 @@ package com.example.test.ui.MatchView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +15,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -259,9 +264,10 @@ fun LineUP(navController:NavController) {
 
             Spacer(modifier = Modifier.width(22.dp))
 
-            OutlinedButton(
+            Button(
                 onClick = { navController.navigate("Eventdetail") },
-                modifier = Modifier.padding(1.dp)
+                modifier = Modifier.padding(1.dp),
+                        colors = ButtonDefaults.buttonColors( Color.Transparent),
 
 
             ) {
@@ -288,12 +294,18 @@ fun LineUP(navController:NavController) {
 
             )
 
-            Spacer(modifier = Modifier.width(25.dp))
-            Text(
-                text = "Table",
-                color = androidx.compose.ui.graphics.Color.White,
-                textAlign = TextAlign.Right
-            )
+            Button(
+                onClick = { navController.navigate("table") },
+                modifier = Modifier.padding(1.dp),
+                        colors = ButtonDefaults.buttonColors( Color.Transparent),
+            ) {
+                Text(
+                    text = "Table",
+                    color = androidx.compose.ui.graphics.Color.White,
+                    textAlign = TextAlign.Right
+
+                )
+            }
 
 
         }
@@ -399,29 +411,29 @@ fun FootballField() {
 
 @Composable
 fun LineUpView(navController: NavController) {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(
-            brush = Brush.verticalGradient(
-                colors = listOf(
-                    Color(android.graphics.Color.parseColor("#000000")),
-                    Color(android.graphics.Color.parseColor("#FF9900"))
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color(android.graphics.Color.parseColor("#000000")),
+                            Color(android.graphics.Color.parseColor("#FF9900"))
+                        )
+                    )
                 )
-            )
-        )
-
-
-
-
-    ){
-
-
-        searchBar(navController)
-        logo()
-        Team()
-        FootballField()
-        LineUP(navController)
-
+        ) {
+            searchBar(navController)
+            logo()
+            Team()
+            FootballField()
+            LineUP(navController)
+        }
     }
 }
 
@@ -430,4 +442,3 @@ fun LineUpView(navController: NavController) {
 private fun previewScreen() {
     LineUpView(navController = rememberNavController())
 }
-
