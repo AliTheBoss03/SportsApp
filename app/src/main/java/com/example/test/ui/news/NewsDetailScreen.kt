@@ -16,10 +16,17 @@ import androidx.compose.ui.unit.dp
 import com.example.test.R
 import com.example.test.ui.news.NewsItem
 
+
+
+data class NewsContent(
+    val title: String,
+    val content: String
+)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsDetailScreen(newsItem: NewsItem) {
     Column(
+
         modifier = Modifier
             .fillMaxSize()
             .background(
@@ -28,6 +35,7 @@ fun NewsDetailScreen(newsItem: NewsItem) {
                         Color(android.graphics.Color.parseColor("#000000")),
                         Color(android.graphics.Color.parseColor("#FF9900"))
                     )
+
                 )
             )
     ) {
@@ -64,16 +72,11 @@ fun NewsDetailScreen(newsItem: NewsItem) {
             )
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Antager, at newsItem indeholder et 'content' felt, der repræsenterer nyhedsindholdet.
+            // Erstat den faste tekst med dynamisk indhold fra newsItem.
             Text(
-                text = "Eden Hazard takker alle sine fans, der har støttet ham, uanset hvor han har spillet.\n" +
-                        "\n" +
-                        "32-årige Eden Hazard har sat fodboldstøvlerne på hylden.\n" +
-                        "\n" +
-                        "Den tidligere Chelsea- og Real Madrid-stjerne har nemlig valgt at indstille sin karriere.\n" +
-                        "\n" +
-                        "- Du skal lytte til dig selv og sige stop på det rigtige tidspunkt. Efter 16 år og mere end 700 kampe har jeg besluttet at stoppe min karriere som professionel fodboldspiller, skriver Hazard på Instagram.ffensivspilleren var på toppen af karrieren, da han i 2019 kom til Real Madrid fra Chelsea, men har slet ikke haft samme succes som i London-klubben.\n" +
-                        "\n" +
-                        "På grund af skader og manglende form er det kun blevet 76 kampe og 7 mål fordelt på fire sæsoner, hvor han stort set aldrig har været stamspiller.",
+                text = newsItem.content
+                ,// Antager, at 'content' er en del af NewsItem
                 color = Color.White,
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -84,6 +87,10 @@ fun NewsDetailScreen(newsItem: NewsItem) {
 @Preview(showBackground = true)
 @Composable
 fun NewsDetailScreenPreview() {
-    NewsDetailScreen(NewsItem("Eden Hazard stopper karrieren ", R.drawable.hazard))
+    // Her skal du erstatte med en faktisk NewsItem for at teste forhåndsvisningen
+    NewsDetailScreen(NewsItem("Eden Hazard stopper karrieren ", R.drawable.hazard, "Her er indholdet af nyheden..."))
+}
 
+fun NewsItem(title: String, imageResId: Int, s: String): NewsItem {
+    TODO("Not yet implemented")
 }
