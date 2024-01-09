@@ -283,7 +283,7 @@ fun PremBar(navController: NavController) {
                     Text(
                         text = "Manchester United", color = Color.White, textAlign = TextAlign.Start
                     )
-                    Spacer(modifier = Modifier.width(200.dp))
+                    Spacer(modifier = Modifier.width(187.dp))
 
 
                     Column {
