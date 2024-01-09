@@ -1,4 +1,4 @@
-package com.example.test
+package com.example.test.model
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

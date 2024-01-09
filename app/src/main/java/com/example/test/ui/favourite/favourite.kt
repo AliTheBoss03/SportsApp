@@ -135,7 +135,7 @@ fun FavouriteMatches(navController: NavController) {
         Column (
             modifier = Modifier
                 .fillMaxWidth()
-                .height(76.dp),
+                .height(100.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ){
 
@@ -143,7 +143,7 @@ fun FavouriteMatches(navController: NavController) {
                 Modifier
                     .fillMaxWidth()
                     .padding(all = 10.dp)
-                    .height(38.dp),
+                    .height(25.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
 
             ){
@@ -157,6 +157,24 @@ fun FavouriteMatches(navController: NavController) {
                     , color = Color.White
                     , textAlign = TextAlign.Right)
             }
+
+            Row (
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 30.dp)
+                    .padding(bottom = 10.dp)
+                    .height(20.dp),
+                horizontalArrangement = Arrangement.End
+            ){
+                Text(text = "FT"
+                    , color = Color.White,
+
+                    modifier = Modifier.align(Alignment.CenterVertically))
+
+
+
+            }
+
 
 
 
@@ -231,8 +249,9 @@ fun FavouriteMatches(navController: NavController) {
             Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 10.dp)
-                .padding(top= 12.dp)
+                .padding(top= 15.dp)
                 .height(38.dp),
+
             horizontalArrangement = Arrangement.SpaceBetween
 
 
@@ -246,7 +265,7 @@ fun FavouriteMatches(navController: NavController) {
         }
     }
     Divider(
-        Modifier.padding(vertical = 360.dp),
+        Modifier.padding(vertical = 400.dp),
         color = Color(0xFFFFA500),
         thickness = 1.dp
     )
