@@ -182,7 +182,7 @@ fun SectionHeader(title: String) {
             text = title,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF9E9E9E),
+            color = Color.White,
             modifier = Modifier.padding(horizontal = 16.dp)
         )
         Divider(

@@ -28,7 +28,7 @@ fun BackButton(onClick: () -> Unit) {
         Icon(
             imageVector = Icons.Default.ArrowBack,
             contentDescription = null,
-            tint = Color.White // Adjust the color as needed
+            tint = Color.White
         )
     }
 }
