@@ -54,7 +54,11 @@ data class BottomNavigationItem(
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
     val hasNews: Boolean,
-    val badgeCount: Int? = null
+    val badgeCount: Int? = null,
+    val route: String,
+    val icon: ImageVector,
+
+
 )
 
 const val BaseUrl = "https://www.thesportsdb.com/"
@@ -197,8 +201,12 @@ fun Navigation(navController: NavHostController) {
             TermsAndConditions(navController)
         }
 
+        composable("newsDetail/{newsTitle}") { backStackEntry ->
+            val newsTitle = backStackEntry.arguments?.getString("newsTitle")
 
-
+        }
+        composable("newsDetail/{newsTitle}") { /* ... */ }
+        // ... Andre ruter defineret ...
     }
 }
 
@@ -207,12 +215,10 @@ fun Navigation(navController: NavHostController) {
 fun BottomNavigationBar(
     items: List<BottomNavItem>,
     navController: NavController,
-    modifier: Modifier = Modifier,
     onItemClick: (BottomNavItem) -> Unit
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
     BottomAppBar (
-        modifier = modifier,
         contentColor = Color.Black,
         tonalElevation = 5.dp
     ){

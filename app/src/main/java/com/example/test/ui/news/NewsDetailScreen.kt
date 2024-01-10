@@ -72,8 +72,7 @@ fun NewsDetailScreen(newsItem: NewsItem) {
             )
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Antager, at newsItem indeholder et 'content' felt, der repræsenterer nyhedsindholdet.
-            // Erstat den faste tekst med dynamisk indhold fra newsItem.
+
             Text(
                 text = newsItem.content
                 ,// Antager, at 'content' er en del af NewsItem
@@ -87,7 +86,7 @@ fun NewsDetailScreen(newsItem: NewsItem) {
 @Preview(showBackground = true)
 @Composable
 fun NewsDetailScreenPreview() {
-    // Her skal du erstatte med en faktisk NewsItem for at teste forhåndsvisningen
+
     NewsDetailScreen(NewsItem("Eden Hazard stopper karrieren ", R.drawable.hazard, "Her er indholdet af nyheden..."))
 }
 

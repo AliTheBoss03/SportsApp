@@ -1,6 +1,7 @@
 package com.example.test.ui.news
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -89,19 +90,28 @@ fun NewsScreen(navController: NavHostController, newsItems: List<NewsItem> = lis
 
             items(newsItems) { news ->
                 NewsArticle(news) {
+                    navigateToNewsDetail(navController, news.title)
                 }
             }
+
         }
     }
 }
 
+fun navigateToNewsDetail(navController: NavHostController, newsTitle: String) {
+    navController.navigate("newsDetail/${newsTitle}")
+}
+
 @Composable
-fun NewsArticle(news: NewsItem, navController: () -> Unit) {
+fun NewsArticle(news: NewsItem, onNewsClick: (NewsItem) -> Unit) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.Black),
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)
+            .clickable { onNewsClick(news) } // Tilføj klik-håndtering her
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
     ) {
         Column(modifier = Modifier.padding(all = 4.dp)) {
             Text(
