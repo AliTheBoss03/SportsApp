@@ -1,81 +1,10 @@
+import com.example.test.data.LeagueStandingsData.LeagueData
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.IOException
-
-data class StandingsResponse(
-    val get: String,
-    val parameters: StandingsParameters,
-    val errors: List<StandingsErrors>,
-    val results: Int,
-    val paging: StandingsPaging,
-    val response: Response
-)
-
-data class Response(
-    @SerializedName("0")
-    val league: League
-)
-
-data class League(
-    val id: Int,
-    val name: String,
-    val country: String,
-    val logo: String,
-    val flag: String,
-    val season: String,
-    val standings: List<Standing>
-)
-
-data class StandingsParameters(
-    val league: String,
-    val season: String
-)
-
-data class StandingsErrors(
-    val results: Int
-)
-
-data class StandingsPaging(
-    val current: Int,
-    val total: Int
-)
-
-data class Standing(
-    val rank: Int,
-    val team: Team,
-    val points: Int,
-    val goalsDiff: Int,
-    val group: String,
-    val form: String,
-    val status: String,
-    val description: String?,
-    val all: StandingStats,
-    val home: StandingStats,
-    val away: StandingStats,
-    val update: String
-)
-
-data class Team(
-    val id: Int,
-    val name: String,
-    val country: String,
-    val logo: String,
-    val flag: String
-)
-
-data class StandingStats(
-    val goalsDiff: Int,
-    val goalsFor: Int,
-    val goalsAgainst: Int,
-    val wins: Int,
-    val draws: Int,
-    val loses: Int
-)
-
 
 class GetLeague {
     suspend fun CallGetLeague(): List<String> {
@@ -96,12 +25,15 @@ class GetLeague {
             val responseBody = response.body!!.string()
             val gson = Gson()
 
-            val standingsResponse = gson.fromJson(responseBody, StandingsResponse::class.java)
+            val standingsResponse = gson.fromJson(responseBody, LeagueData::class.java)
+            //val teamNames = standingsResponse.response.getOrNull(1)?.league?.standings?.getOrNull(4)?.team?.name
 
-            standingsResponse.response.league.standings.map { it.team.name }
+            standingsResponse.response[2].league.standings.map { it[2].team.name }
         }
     }
 }
+
+
 
 
 // api key: 6d7c11252bmsh9d1bdc83e3cfc9ep190b23jsn0b9a92034ab6
