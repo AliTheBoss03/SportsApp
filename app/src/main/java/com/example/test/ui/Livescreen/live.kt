@@ -15,10 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -44,6 +42,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.test.R
+import com.example.test.model.GetLivescore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class live {
 
@@ -648,8 +649,17 @@ fun previewLive(navController: NavHostController) {
 @Composable
 private fun LiveView() {
     previewLive(navController = rememberNavController())
+
 }
 
+private suspend fun getLivescoreData(): String {
+    return withContext(Dispatchers.IO) {
+        val getLeague = GetLivescore()
+        val apiResponse = getLeague.CallGetLivescore()
 
+        // Convert the ApiResponse object to a JSON string or extract specific fields
+        apiResponse.toString()
+    }
+}
 
-
+//  getLivescoreData() finde det rigtige sted, så den vil returnerer live kampe

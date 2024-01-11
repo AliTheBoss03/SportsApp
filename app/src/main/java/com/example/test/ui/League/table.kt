@@ -1,27 +1,41 @@
 package com.example.test.ui.League
 
+import GetLeague
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.test.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun PremierLeagueHeader() {
@@ -224,23 +238,34 @@ fun PremierLeagueScreen(standings: List<TeamStanding>, topScorers: List<TopScore
 @Preview(showBackground = true)
 @Composable
 fun PreviewPremierLeagueScreen() {
-    val sampleStandings = listOf(
-        TeamStanding(1, "Man City", 29, 6, 3, 90, 52, 93),
-        TeamStanding(2, "Liverpool", 29, 6, 3, 90, 52, 93),
-        TeamStanding(3, "Chelsea", 29, 6, 3, 90, 52, 93),
-        TeamStanding(4, "Tottenham", 29, 6, 3, 90, 52, 93),
-        TeamStanding(5, "Arsenal", 29, 6, 3, 90, 52, 93)
+    val leagueData = remember { mutableStateOf("") }
 
-    )
+    LaunchedEffect(Unit) {
+        leagueData.value = getLeagueData()
+        println(leagueData.value)
+    }
 
-    val sampleTopScorers = listOf(
-        TopScorer(1, "M. Salah", "Liverpool", 23, 13),
-        TopScorer(2, "Son Heung-Min", "Tottenham", 23, 7),
-        TopScorer(3, "C. Ronaldo", "Manchster United", 18, 3),
-        TopScorer(4, "H. Kane", "Tottenham", 13, 8),
-        TopScorer(5, "S. Mane", "Liverpool", 12, 1),
-
-    )
-
-    PremierLeagueScreen(standings = sampleStandings, topScorers = sampleTopScorers)
+    // Display the league data or a loading message
+    if (leagueData.value.isEmpty()) {
+        Text("Loading...")
+    } else {
+        Text(leagueData.value)
+    }
 }
+//kopier nedståejde og sæt det ind i en anden klasse
+private suspend fun getLeagueData(): String {
+    return withContext(Dispatchers.IO) {
+        try {
+            val getLeague = GetLeague()
+            val apiResponse = getLeague.CallGetLeague() ?: return@withContext "API response is null"
+
+            apiResponse.toString()
+        } catch (e: Exception) {
+            // Håndter andre exception-tilfælde efter behov
+            return@withContext "Error: ${e.message}"
+        }
+    }
+}
+
+
+

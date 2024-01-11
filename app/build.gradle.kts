@@ -73,7 +73,6 @@ dependencies {
     val nav_version = "2.7.5"
 
 
-
     implementation ("androidx.navigation:navigation-compose:2.4.0-alpha10")
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
@@ -87,8 +86,11 @@ dependencies {
     //coil
     implementation("io.coil-kt:coil-compose:1.3.2")
 
-
+    implementation("com.squareup.okhttp3:okhttp:4.9.0") // mit svar på api
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    implementation ("com.google.code.gson:gson:2.8.6")
     }
+
 
 
 

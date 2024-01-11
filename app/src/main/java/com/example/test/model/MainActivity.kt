@@ -49,6 +49,8 @@ import com.example.test.ui.news.NewsScreenPreview
 import com.example.test.ui.results.ResultsView
 import com.example.test.ui.settings.SettingsPage
 import com.example.test.ui.theme.TestTheme
+import kotlinx.coroutines.runBlocking
+
 
 data class BottomNavigationItem(
     val title: String,
@@ -217,6 +219,8 @@ fun BottomNavigationBar(
     navController: NavController,
     onItemClick: (BottomNavItem) -> Unit
 ) {
+
+
     val backStackEntry = navController.currentBackStackEntryAsState()
     BottomAppBar (
         contentColor = Color.Black,
@@ -253,7 +257,7 @@ fun BottomNavigationBar(
                 }
             )
         }
-    }
 
+    }
 }
 
