@@ -1,6 +1,6 @@
 package com.example.test.ui.League
 
-import GetLeague
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -34,8 +34,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.test.R
+
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody.Companion.toResponseBody
 
 @Composable
 fun PremierLeagueHeader() {
@@ -241,7 +244,7 @@ fun PreviewPremierLeagueScreen() {
     val leagueData = remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
-        leagueData.value = getLeagueData()
+      //  leagueData.value = getLeagueData()
         println(leagueData.value)
     }
 
@@ -251,7 +254,10 @@ fun PreviewPremierLeagueScreen() {
     } else {
         Text(leagueData.value)
     }
+
 }
+/**
+
 //kopier nedståejde og sæt det ind i en anden klasse
 private suspend fun getLeagueData(): String {
     return withContext(Dispatchers.IO) {
@@ -266,6 +272,6 @@ private suspend fun getLeagueData(): String {
         }
     }
 }
-
+*/
 
 

@@ -14,42 +14,29 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.test.MyViewModel
 import com.example.test.R
-import com.example.test.model.GetLivescore
+import com.example.test.data.LiveMatchesData.LiveMatches
+
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-
-class live {
-
-}
-
 
 @Composable
 fun logo() {
@@ -74,7 +61,7 @@ fun logo() {
     }
 
 }
-
+/**
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(onSearch: (String) -> Unit) {
@@ -198,12 +185,13 @@ fun kalenderLaylout(text: String, paddingTop: Dp) {
 
 }
 
-
+*/
 
 
 
 @Composable
-fun PremBar(navController: NavController) {
+fun PremBar(navController: NavController, viewModel: MyViewModel = viewModel()) {
+    val liveMatches by viewModel.data
     // Premierleague Bar
     Column(
         modifier = Modifier
@@ -247,7 +235,7 @@ fun PremBar(navController: NavController) {
             Column(modifier = Modifier
                 .padding(top = 10.dp)
                 .padding(end = 10.dp) ){
-                Text(text ="Premier League", color = androidx.compose.ui.graphics.Color.White, fontWeight = FontWeight.Bold )
+                Text(text = "Prem", color = androidx.compose.ui.graphics.Color.White, fontWeight = FontWeight.Bold )
                 Text(text = "England", color = androidx.compose.ui.graphics.Color.White )
             }
         }
@@ -274,7 +262,7 @@ fun PremBar(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
                 Row (horizontalArrangement = Arrangement.Start) {
-                    Text(text = "Manchester United"
+                    Text(text = "ManChester"
                         , color = androidx.compose.ui.graphics.Color.White
                         , textAlign = TextAlign.Start)
 
@@ -591,7 +579,7 @@ fun PremBar(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ){
-                Text(text = "Liverpool"
+                Text(text = ""
                     , color = androidx.compose.ui.graphics.Color.White
                 )
                 Text(text = "3"
@@ -624,23 +612,22 @@ fun previewLive(navController: NavHostController) {
                 colors = listOf(
                     Color(android.graphics.Color.parseColor("#000000")),
                     Color(android.graphics.Color.parseColor("#FF9900"))
-                    )
                 )
             )
-
-
-        ){
+        )
+    )
+        {
             logo()
             PremBar(navController)
-            kalender()
-            SearchFunktion()
+           // kalender()
+            //SearchFunktion()
 
-
-
-        }
 
 
     }
+
+
+}
 
 
 
@@ -651,15 +638,3 @@ private fun LiveView() {
     previewLive(navController = rememberNavController())
 
 }
-
-private suspend fun getLivescoreData(): String {
-    return withContext(Dispatchers.IO) {
-        val getLeague = GetLivescore()
-        val apiResponse = getLeague.CallGetLivescore()
-
-        // Convert the ApiResponse object to a JSON string or extract specific fields
-        apiResponse.toString()
-    }
-}
-
-//  getLivescoreData() finde det rigtige sted, så den vil returnerer live kampe

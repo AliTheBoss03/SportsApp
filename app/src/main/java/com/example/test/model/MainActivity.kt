@@ -2,6 +2,7 @@ package com.example.test.model
 
 import AboutUs
 import ContactUs
+
 import PrivacyPolicy
 import TermsAndConditions
 import android.annotation.SuppressLint
@@ -37,6 +38,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.test.data.LiveMatchesData.LiveMatches
 import com.example.test.ui.Livescreen.previewLive
 import com.example.test.ui.League.PreviewPremierLeagueScreen
 import com.example.test.ui.MatchView.EventDetailsView
@@ -49,6 +51,7 @@ import com.example.test.ui.news.NewsScreenPreview
 import com.example.test.ui.results.ResultsView
 import com.example.test.ui.settings.SettingsPage
 import com.example.test.ui.theme.TestTheme
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
 
@@ -73,6 +76,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             TestTheme {
                 val navController = rememberNavController()
+                val liveMatches = runBlocking(Dispatchers.IO) {
+                    //fetchData()
+                }
                 Scaffold(
                     bottomBar = {
                         BottomNavigationBar(
@@ -117,37 +123,14 @@ class MainActivity : ComponentActivity() {
 
 
             }
-
-       // getMyData()
             }
     /**
-    private fun getMyData() {
-        val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BaseUrl)
-            .build()
-            .create(apiInterface::class.java)
+    private suspend fun fetchData(): List<String> {
+        // Implement your logic to fetch data
+        // Return the data as per your actual data structure
+        //return GetLivescore().CallGetLivescore()
+    }*/
 
-        val retrofitData = retrofitBuilder.getData()
-
-        retrofitData.enqueue(object : Callback<List<Table>?> {
-            override fun onResponse(call: Call<List<Table>?>, response: Response<List<Table>?>) {
-                val responseBody = response.body()!!
-
-                val myStringBuilder = StringBuilder()
-                for (Table in responseBody) {
-                    myStringBuilder.append(Table.idTeam)
-                    myStringBuilder.append("/n")
-                }
-
-            }
-
-            override fun onFailure(call: Call<List<Table>?>, t: Throwable) {
-                Log.d("MainActivity","onFailure: "+t.message)
-            }
-        })
-    }
-    */
 }
 
 

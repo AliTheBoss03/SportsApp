@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.IOException
-
+/**
 class GetLeague {
     suspend fun CallGetLeague(): List<String> {
         val client = OkHttpClient()
@@ -38,3 +38,4 @@ class GetLeague {
 
 // api key: 6d7c11252bmsh9d1bdc83e3cfc9ep190b23jsn0b9a92034ab6
 //standingsResponse.standings.map { it.type }
+        */
