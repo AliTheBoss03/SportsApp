@@ -14,16 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 fun MyScreen(viewModel: MyViewModel = viewModel()) {
     val liveMatches by viewModel.data
 
-    // Compose UI components to display the data
     liveMatches?.let {
-        // Access individual properties of LiveMatches and create UI components accordingly
         Text("Country: ${it.response.first().league.country}")
         Text("Number of matches: ${it.results}")
-        // ... Add more UI components based on your data structure
     }
 }
 @Preview
 @Composable
-fun prevScreen(){
+fun prevMyScreen(){
     MyScreen()
 }

@@ -39,6 +39,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.test.data.LiveMatchesData.LiveMatches
+import com.example.test.prevMyScreen
 import com.example.test.ui.Livescreen.previewLive
 import com.example.test.ui.League.PreviewPremierLeagueScreen
 import com.example.test.ui.MatchView.EventDetailsView
@@ -162,7 +163,8 @@ fun Navigation(navController: NavHostController) {
             com.example.test.ui.search.previewResults()
         }
         composable("livescreen") {
-            previewLive(navController)
+            //previewLive(navController)
+            prevMyScreen()
         }
         composable("upcoming") {
             Upcoming(navController)

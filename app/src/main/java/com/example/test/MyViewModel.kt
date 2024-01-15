@@ -1,5 +1,6 @@
 package com.example.test
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,7 @@ class MyViewModel : ViewModel() {
     private val _data = mutableStateOf<LiveMatches?>(null)
     val data: State<LiveMatches?> = _data
 
-    fun fetchData() {
+    init {
         viewModelScope.launch {
             try {
                 val response: Response<LiveMatches> = apiService.fetchData()
@@ -25,6 +26,7 @@ class MyViewModel : ViewModel() {
                     // Handle unsuccessful response (e.g., show an error message)
                 }
             } catch (e: Exception) {
+                e.printStackTrace()
                 // Handle exceptions (e.g., show an error message)
             }
         }

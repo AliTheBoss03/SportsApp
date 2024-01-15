@@ -275,6 +275,7 @@ fun PremBar(navController: NavController, viewModel: MyViewModel = viewModel()) 
                         Text(text = "79'"
                             , color = androidx.compose.ui.graphics.Color.White
                             , textAlign = TextAlign.Start)
+
                     }
 
 
