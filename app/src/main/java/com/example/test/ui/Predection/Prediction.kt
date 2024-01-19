@@ -9,36 +9,34 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.example.test.ViewModel.MyViewModel
 import com.example.test.R
+import com.example.test.data.response.PredictionRes
 
-data class Prediction(
-    val userName: String,
-    val prediction: String,
-    val accuracy: Float
-)
 
-val dummyPredictions = listOf(
-    Prediction(userName = "Chelsea", prediction = "Chelsea", accuracy = 70f),
-    Prediction(userName = "Watford", prediction = "Uafgjort", accuracy = 10f),
-    Prediction(userName = "Draw", prediction = "Watford", accuracy = 20f)
-
-)
 
 @Composable
-fun Leaderboard(predictions: List<Prediction>) {
+fun Leaderboard(home:String,away:String,predictions: PredictionRes.Response.Predictions.Percent) {
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
             "Leaderboard",
@@ -46,26 +44,62 @@ fun Leaderboard(predictions: List<Prediction>) {
             fontSize = 20.sp,
             color = Color.White
         )
-        predictions.sortedByDescending { it.accuracy }.take(5).forEach { prediction ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    prediction.userName,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 16.sp,
-                    color = Color.White
-                )
-                Text(
-                    "${prediction.accuracy}%",
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 16.sp,
-                    color = Color.White
-                )
-            }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                home,
+                fontWeight = FontWeight.Normal,
+                fontSize = 16.sp,
+                color = Color.White
+            )
+            Text(
+                "${predictions.home}%",
+                fontWeight = FontWeight.Normal,
+                fontSize = 16.sp,
+                color = Color.White
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                "Draw",
+                fontWeight = FontWeight.Normal,
+                fontSize = 16.sp,
+                color = Color.White
+            )
+            Text(
+                "${predictions.draw}%",
+                fontWeight = FontWeight.Normal,
+                fontSize = 16.sp,
+                color = Color.White
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                away,
+                fontWeight = FontWeight.Normal,
+                fontSize = 16.sp,
+                color = Color.White
+            )
+            Text(
+                "${predictions.away}%",
+                fontWeight = FontWeight.Normal,
+                fontSize = 16.sp,
+                color = Color.White
+            )
         }
     }
 }
@@ -89,7 +123,7 @@ fun onSharePrediction() {
 }
 
 @Composable
-fun MatchRow() {
+fun MatchRow(teams: PredictionRes.Response.Teams) {
     Column {
         Spacer(modifier = Modifier.height(16.dp))
         Row(
@@ -102,18 +136,21 @@ fun MatchRow() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            TeamInfo(teamName = "Chelsea", teamLogo = R.drawable.chelsea)
-            MatchTime(time = "13:00", date = "28 May")
-            TeamInfo(teamName = "Watford", teamLogo = R.drawable.wat)
+            TeamInfo(teamName = teams.home.name, teamLogo = teams.home.logo)
+            MatchTime(time = "VS", date = "-")
+            TeamInfo(teamName = teams.away.name, teamLogo = teams.away.logo)
         }
     }
 }
 
 @Composable
-fun TeamInfo(teamName: String, teamLogo: Int) {
+fun TeamInfo(teamName: String, teamLogo: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(
-            painter = painterResource(id = teamLogo),
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(teamLogo)
+                .crossfade(true)
+                .build(),
             contentDescription = "$teamName Logo",
             modifier = Modifier.size(50.dp)
         )
@@ -141,14 +178,14 @@ fun WinnerSelectionHeader() {
 }
 
 @Composable
-fun WinnerSelectionRow(onSelection: (String) -> Unit) {
+fun WinnerSelectionRow(home:String, away: String,onSelection: (String) -> Unit) {
     Column {
         WinnerSelectionHeader()
         Spacer(modifier = Modifier.height(8.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 5.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Button(
@@ -157,8 +194,9 @@ fun WinnerSelectionRow(onSelection: (String) -> Unit) {
                 modifier = Modifier
                     .clip(CircleShape)
                     .padding(8.dp)
+                    .weight(1f)
             ) {
-                Text("Chelsea", color = MaterialTheme.colorScheme.onPrimary)
+                Text(home, color = MaterialTheme.colorScheme.onPrimary)
             }
             Button(
                 onClick = { onSelection("DRAW") },
@@ -166,6 +204,7 @@ fun WinnerSelectionRow(onSelection: (String) -> Unit) {
                 modifier = Modifier
                     .clip(CircleShape)
                     .padding(8.dp)
+                    .weight(1f)
             ) {
                 Text("Draw", color = MaterialTheme.colorScheme.onTertiary)
             }
@@ -175,8 +214,9 @@ fun WinnerSelectionRow(onSelection: (String) -> Unit) {
                 modifier = Modifier
                     .clip(CircleShape)
                     .padding(8.dp)
+                    .weight(1f)
             ) {
-                Text("Watford", color = MaterialTheme.colorScheme.onSecondary)
+                Text(away, color = MaterialTheme.colorScheme.onSecondary)
             }
         }
     }
@@ -200,7 +240,14 @@ fun MatchTime(time: String, date: String) {
 }
 
 @Composable
-fun MatchScreen() {
+fun MatchScreen(fixId: String, viewModel: MyViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+    LaunchedEffect(key1 = Unit,) {
+        viewModel.getPredictions(fixId)
+    }
+    var isShow by remember {
+        mutableStateOf(false)
+    }
+    val prediction by viewModel.predictionData.collectAsState()
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -222,21 +269,19 @@ fun MatchScreen() {
                 .align(Alignment.TopStart)
         )
 
-        Column {
-            Spacer(modifier = Modifier.height(70.dp))
-            MatchRow()
-            Spacer(modifier = Modifier.height(10.dp))
-            WinnerSelectionRow { winner ->
-                // Implementer din logik her for at håndtere brugerens valg
+        prediction?.response?.let {
+            Column {
+                Spacer(modifier = Modifier.height(70.dp))
+                MatchRow(it.first().teams)
+                Spacer(modifier = Modifier.height(10.dp))
+                WinnerSelectionRow(it.first().teams.home.name,it.first().teams.away.name,) { winner ->
+                    isShow = true
+                }
+                if(isShow){
+                    Leaderboard(it.first().teams.home.name,it.first().teams.away.name,it.first().predictions.percent)
+                }
             }
-            Leaderboard(dummyPredictions)
-            SharePredictionButton(onShareClicked = ::onSharePrediction)
         }
     }
 }
 
-@Preview(showBackground = true, widthDp = 360, heightDp = 640)
-@Composable
-fun PreviewMatchScreen() {
-    MatchScreen()
-}

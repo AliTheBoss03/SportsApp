@@ -1,4 +1,6 @@
 package com.example.test.ui.UpcomingMatches
+
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,37 +14,35 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.example.test.ViewModel.MyViewModel
 import com.example.test.R
-
-fun Row(modifier: Modifier, verticalArrangement: Arrangement.Vertical, any: Any?) {
-
-}
+import com.example.test.model.getDate
+import com.example.test.model.getTime
+import com.example.test.data.response.UpcommingRes
 
 @Composable
 fun logo() {
@@ -63,67 +63,53 @@ fun logo() {
         )
     }
 
-    }
-
-@Composable
-fun SearchBar(onSearch: (String) -> Unit) {
-    var searchText by remember { mutableStateOf("") }
-
-
-    TextField(
-        value = searchText,
-        onValueChange = {
-            searchText = it
-            onSearch(it)
-
-
-        },
-        placeholder = { Text("Search") },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(50.dp,0.dp,10.dp,10.dp)
-            .height(30.dp)
-            .clip(RoundedCornerShape(corner = CornerSize(20.dp))),
-
-
-
-        )
-
-
 }
-
 @Composable
-fun SearchFunktion() {
-    var searchQuery by remember { mutableStateOf("") }
-
+fun SearchBar(navController: NavController) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.End
     ) {
+        Row (
+            modifier = Modifier
+                .width(125.dp)
+                .height(31.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.Top
 
+        ) {
+            IconButton(onClick = { navController.navigate("news") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_newspaper_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
 
-        // Søgebjælke
-        com.example.test.ui.results.SearchBar(onSearch = { query ->
-            // Opdater logik baseret på søgeordet (query)
-            searchQuery = query
-            // F.eks. opdater søgeresultater eller udfør anden relevant logik
-        })
-
+            IconButton(onClick = { navController.navigate("settings") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_settings_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
+        }
 
     }
 }
 
+
 @Composable
-fun MatchRow1(navController:NavController) {
+fun MatchRow1(navController: NavController, item: UpcommingRes.Response) {
     Column {
-
-
-        Spacer(modifier = Modifier.height(100.dp)) // Tilføjer et mellemrum fra searhbar toppen
-
+        Spacer(modifier = Modifier.height(8.dp))
         Row(
-
             modifier = Modifier
                 .height(60.dp)
                 // Brug fillMaxWidth for at undgå at hardkode bredden
@@ -132,20 +118,27 @@ fun MatchRow1(navController:NavController) {
                 .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
                 .background(Color.White)
                 .padding(9.dp)
-            .clickable {
-            // Naviger til LineUp skærmen
-            navController.navigate("LineUp")
-        },
+                .clickable {
+                    // Naviger til LineUp skærmen
+
+                    Log.d(
+                        "TAGTeam",
+                        "LineUpView: ${item.fixture.id} - ${item.teams.home.id} ${item.fixture.venue.id}"
+                    )
+                    navController.navigate("LineUp/{${item.fixture.id}}/{${item.teams.home.id}}/{${item.fixture.venue.id}}")
+                },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
-
 
 
         ) {
             // Hold 1 logo og navn
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.liverpool), // holdlogo
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(item.teams.home.logo)
+                        .crossfade(true)
+                        .build(),
                     contentDescription = "Team One Logo",
                     modifier = Modifier
                         .height(61.dp)
@@ -161,188 +154,35 @@ fun MatchRow1(navController:NavController) {
             // Kamp tid og dato
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "09:00",
+                    text = getTime(item.fixture.timestamp),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
+                    fontSize = 17.sp,
+                    color = Color(0xFF311906)
                 )
 
                 Text(
-                    text = "23 May",
+                    text = getDate(item.fixture.timestamp),
                     fontWeight = FontWeight.Bold,
                     fontSize = 17.sp,
-                    color = Color(0xffE8791D))
+                    color = Color(0xffE8791D)
+                )
 
 
             }
 
             // Hold 2 logo og navn
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.crystal), // Erstat med det korrekte holdlogo
-                    contentDescription = "Team Two Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "WAT",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
-                )
-            }
-        }
-    }
-}
-
-
-
-
-
-
-
-
-@Composable
-fun MatchRow2(navController: NavController) {
-    Column {
-
-        Spacer(modifier = Modifier.height(170.dp)) // Tilføjer et mellemrum fra searhbar toppen
-
-        Row(
-            modifier = Modifier
-                .height(60.dp)
-                // Brug fillMaxWidth for at undgå at hardkode bredden
-                .fillMaxWidth()
-                // Tilføj afrundede hjørner her
-                .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
-                .background(Color.White)
-                .padding(9.dp)
-            .clickable {
-            // Naviger til LineUp skærmen
-            navController.navigate("LineUp")
-        },
-
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-            // Hold 1 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.liverpool), // holdlogo
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(item.teams.away.logo)
+                        .crossfade(true)
+                        .build(),
                     contentDescription = "Team One Logo",
                     modifier = Modifier
                         .height(61.dp)
                         .width(61.dp)
                 )
                 Text(
-                    text = "LFC",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-
-            // Kamp tid og dato
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "09:00",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
-
-                Text(
-                    text = "23 May",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp,
-                    color = Color(0xffE8791D))
-
-
-            }
-
-            // Hold 2 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.crystal), // Erstat med det korrekte holdlogo
-                    contentDescription = "Team Two Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "WAT",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun MatchRow3(navController: NavController) {
-    Column {
-
-        Spacer(modifier = Modifier.height(240.dp)) // Tilføjer et mellemrum fra searhbar toppen
-
-        Row(
-            modifier = Modifier
-                .height(60.dp)
-                // Brug fillMaxWidth for at undgå at hardkode bredden
-                .fillMaxWidth()
-                // Tilføj afrundede hjørner her
-                .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
-                .background(Color.White)
-                .padding(9.dp)
-                .clickable {
-                    // Naviger til LineUp skærmen
-                    navController.navigate("LineUp")
-                },
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-            // Hold 1 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.leeds), // holdlogo
-                    contentDescription = "Team One Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "CHE",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-
-            // Kamp tid og dato
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "08:00",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
-
-                Text(
-                    text = "28 May",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp,
-                    color = Color(0xffE8791D))
-
-
-            }
-
-            // Hold 2 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.chelsea), // Erstat med det korrekte holdlogo
-                    contentDescription = "Team Two Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
                     text = "WAT",
                     fontWeight = FontWeight.Bold,
                     fontSize = 14.sp
@@ -352,531 +192,13 @@ fun MatchRow3(navController: NavController) {
     }
 }
 @Composable
-fun MatchRow4(navController: NavController) {
-    Column {
-
-        Spacer(modifier = Modifier.height(310.dp)) // Tilføjer et mellemrum fra searhbar toppen
-
-        Row(
-            modifier = Modifier
-                .height(60.dp)
-                // Brug fillMaxWidth for at undgå at hardkode bredden
-                .fillMaxWidth()
-                // Tilføj afrundede hjørner her
-                .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
-                .background(Color.White)
-                .padding(9.dp)
-                .clickable {
-                    // Naviger til LineUp skærmen
-                    navController.navigate("LineUp")
-                },
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-            // Hold 1 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.chelsea), // holdlogo
-                    contentDescription = "Team One Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "CHE",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-
-            // Kamp tid og dato
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "08:00",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
-
-                Text(
-                    text = "28 May",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp,
-                    color = Color(0xffE8791D))
+fun Upcoming(navController: NavHostController, viewModel: MyViewModel) {
+    val data = viewModel.upcomingData.collectAsState()
 
 
-            }
-
-            // Hold 2 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.mancity), // Erstat med det korrekte holdlogo
-                    contentDescription = "Team Two Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "WAT",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun MatchRow5(navController: NavController) {
-    Column {
-
-        Spacer(modifier = Modifier.height(380.dp)) // Tilføjer et mellemrum fra searhbar toppen
-
-        Row(
-            modifier = Modifier
-                .height(60.dp)
-                // Brug fillMaxWidth for at undgå at hardkode bredden
-                .fillMaxWidth()
-                // Tilføj afrundede hjørner her
-                .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
-                .background(Color.White)
-                .padding(9.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-            // Hold 1 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.brighton), // holdlogo
-                    contentDescription = "Team One Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "CHE",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-
-            // Kamp tid og dato
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "08:00",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
-
-                Text(
-                    text = "28 May",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp,
-                    color = Color(0xffE8791D))
-
-
-            }
-
-            // Hold 2 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.wat), // Erstat med det korrekte holdlogo
-                    contentDescription = "Team Two Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "WAT",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun MatchRow6(navController: NavController) {
-    Column {
-
-        Spacer(modifier = Modifier.height(450.dp)) // Tilføjer et mellemrum fra searhbar toppen
-
-        Row(
-            modifier = Modifier
-                .height(60.dp)
-                // Brug fillMaxWidth for at undgå at hardkode bredden
-                .fillMaxWidth()
-                // Tilføj afrundede hjørner her
-                .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
-                .background(Color.White)
-                .padding(9.dp)
-                .clickable {
-                    // Naviger til LineUp skærmen
-                    navController.navigate("LineUp")
-                },
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-            // Hold 1 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.astonvilla), // holdlogo
-                    contentDescription = "Team One Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "CHE",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-
-            // Kamp tid og dato
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "08:00",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
-
-                Text(
-                    text = "28 May",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp,
-                    color = Color(0xffE8791D))
-
-
-            }
-
-            // Hold 2 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.everton), // Erstat med det korrekte holdlogo
-                    contentDescription = "Team Two Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "WAT",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun MatchRow7(navController: NavController) {
-    Column {
-
-        Spacer(modifier = Modifier.height(520.dp)) // Tilføjer et mellemrum fra searhbar toppen
-
-        Row(
-            modifier = Modifier
-                .height(60.dp)
-                // Brug fillMaxWidth for at undgå at hardkode bredden
-                .fillMaxWidth()
-                // Tilføj afrundede hjørner her
-                .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
-                .background(Color.White)
-                .padding(9.dp)
-                .clickable {
-                    // Naviger til LineUp skærmen
-                    navController.navigate("LineUp")
-                },
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-            // Hold 1 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.mancity), // holdlogo
-                    contentDescription = "Team One Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "CHE",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-
-            // Kamp tid og dato
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "08:00",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
-
-                Text(
-                    text = "28 May",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp,
-                    color = Color(0xffE8791D))
-
-
-            }
-
-            // Hold 2 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.astonvilla), // Erstat med det korrekte holdlogo
-                    contentDescription = "Team Two Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "WAT",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun MatchRow8(navController: NavController) {
-    Column {
-
-        Spacer(modifier = Modifier.height(590.dp)) // Tilføjer et mellemrum fra searhbar toppen
-
-        Row(
-            modifier = Modifier
-                .height(60.dp)
-                // Brug fillMaxWidth for at undgå at hardkode bredden
-                .fillMaxWidth()
-                // Tilføj afrundede hjørner her
-                .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
-                .background(Color.White)
-                .padding(9.dp)
-                .clickable {
-                    // Naviger til LineUp skærmen
-                    navController.navigate("LineUp")
-                },
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-            // Hold 1 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.liverpool), // holdlogo
-                    contentDescription = "Team One Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "CHE",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-
-            // Kamp tid og dato
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "08:00",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
-
-                Text(
-                    text = "28 May",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp,
-                    color = Color(0xffE8791D))
-
-
-            }
-
-            // Hold 2 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.leeds), // Erstat med det korrekte holdlogo
-                    contentDescription = "Team Two Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "WAT",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
-                )
-            }
-        }
-    }
-}
-@Composable
-fun MatchRow9(navController: NavController) {
-    Column {
-
-        Spacer(modifier = Modifier.height(660.dp)) // Tilføjer et mellemrum fra searhbar toppen
-
-        Row(
-            modifier = Modifier
-                .height(60.dp)
-                // Brug fillMaxWidth for at undgå at hardkode bredden
-                .fillMaxWidth()
-                // Tilføj afrundede hjørner her
-                .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
-                .background(Color.White)
-                .padding(9.dp)
-                .clickable {
-                    // Naviger til LineUp skærmen
-                    navController.navigate("LineUp")
-                },
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-            // Hold 1 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.brighton), // holdlogo
-                    contentDescription = "Team One Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "CHE",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-
-            // Kamp tid og dato
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "08:00",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
-
-                Text(
-                    text = "28 May",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp,
-                    color = Color(0xffE8791D))
-
-
-            }
-
-            // Hold 2 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.astonvilla), // Erstat med det korrekte holdlogo
-                    contentDescription = "Team Two Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "WAT",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
-                )
-            }
-        }
-    }
-}
-@Composable
-fun MatchRow10(navController: NavController) {
-    Column {
-
-        Spacer(modifier = Modifier.height(730.dp)) // Tilføjer et mellemrum fra searhbar toppen
-
-        Row(
-            modifier = Modifier
-                .height(60.dp)
-                // Brug fillMaxWidth for at undgå at hardkode bredden
-                .fillMaxWidth()
-                // Tilføj afrundede hjørner her
-                .clip(RoundedCornerShape(corner = CornerSize(15.dp)))
-                .background(Color.White)
-                .padding(9.dp)
-                .clickable {
-                    // Naviger til LineUp skærmen
-                    navController.navigate("LineUp")
-                },
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-            // Hold 1 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.mancity), // holdlogo
-                    contentDescription = "Team One Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "CHE",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-
-            // Kamp tid og dato
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "08:00",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
-                )
-
-                Text(
-                    text = "28 May",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp,
-                    color = Color(0xffE8791D))
-
-
-            }
-
-            // Hold 2 logo og navn
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = R.drawable.chelsea), // Erstat med det korrekte holdlogo
-                    contentDescription = "Team Two Logo",
-                    modifier = Modifier
-                        .height(61.dp)
-                        .width(61.dp)
-                )
-                Text(
-                    text = "WAT",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
-                )
-            }
-        }
-    }
-}
-
-
-@Composable
-fun Upcoming(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
     ) {
         Box(
             modifier = Modifier
@@ -892,26 +214,21 @@ fun Upcoming(navController: NavHostController) {
 
         ) {
             logo()
-            SearchFunktion()
-            MatchRow1(navController)
-            MatchRow2(navController)
-            MatchRow3(navController)
-            MatchRow4(navController)
-            MatchRow5(navController)
-            MatchRow6(navController)
-            MatchRow7(navController)
-            MatchRow8(navController)
-            MatchRow9(navController)
-            MatchRow10(navController)
+            SearchBar(navController)
+            LazyColumn() {
+                item {
+                    Spacer(modifier = Modifier.height(78.dp))
+                }
+                itemsIndexed(
+                    data.value?.response ?: arrayListOf()
+                ) { i, item ->
+                    MatchRow1(navController, item)
+                }
+            }
         }
     }
 }
 
-@Preview
-@Composable
-private fun PreviewUpcoming() {
-    Upcoming(navController = rememberNavController())
-}
 
 
 

@@ -10,12 +10,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,28 +24,28 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.test.data.LiveMatchesData.LiveMatches
-import com.example.test.prevMyScreen
-import com.example.test.ui.Livescreen.previewLive
+import androidx.navigation.navArgument
+import com.example.test.ViewModel.MyViewModel
 import com.example.test.ui.League.PreviewPremierLeagueScreen
+import com.example.test.ui.Livescreen.prevMyScreen
 import com.example.test.ui.MatchView.EventDetailsView
 import com.example.test.ui.MatchView.LineUpView
-import com.example.test.ui.Predection.PreviewMatchScreen
+import com.example.test.ui.Predection.MatchScreen
 import com.example.test.ui.UpcomingMatches.Upcoming
-import com.example.test.ui.favourite.Favourite
 import com.example.test.ui.frontpage.FrontPage
 import com.example.test.ui.news.NewsScreenPreview
 import com.example.test.ui.results.ResultsView
@@ -55,30 +54,15 @@ import com.example.test.ui.theme.TestTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
-
-data class BottomNavigationItem(
-    val title: String,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
-    val hasNews: Boolean,
-    val badgeCount: Int? = null,
-    val route: String,
-    val icon: ImageVector,
-
-
-)
-
-const val BaseUrl = "https://www.thesportsdb.com/"
-@OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             TestTheme {
                 val navController = rememberNavController()
                 val liveMatches = runBlocking(Dispatchers.IO) {
-                    //fetchData()
                 }
                 Scaffold(
                     bottomBar = {
@@ -95,16 +79,6 @@ class MainActivity : ComponentActivity() {
                                     icon = Icons.Filled.DateRange
                                 ),
                                 BottomNavItem(
-                                    name = "Favourite",
-                                    route = "favourite",
-                                    icon = Icons.Filled.Favorite
-                                ),
-                                BottomNavItem(
-                                    name = "Predictions",
-                                    route = "predictions",
-                                    icon = Icons.Filled.Person
-                                ),
-                                BottomNavItem(
                                     name = "League",
                                     route = "league",
                                     icon = Icons.Filled.List
@@ -116,39 +90,35 @@ class MainActivity : ComponentActivity() {
                             })
                     }
                 ) {
-                    Navigation(navController = navController)
 
+                    val viewModel: MyViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 
+                    LaunchedEffect(key1 = Unit){
+                        viewModel.getLiveScore()
+                        viewModel.getResults()
+                        viewModel.getUpcoming()
+                    }
+                    Navigation(navController = navController,viewModel)
                 }
             }
-
-
-            }
-            }
-    /**
-    private suspend fun fetchData(): List<String> {
-        // Implement your logic to fetch data
-        // Return the data as per your actual data structure
-        //return GetLivescore().CallGetLivescore()
-    }*/
-
+        }
+    }
 }
 
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(navController: NavHostController,viewModel: MyViewModel) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
-            FrontPage(navController)
+            FrontPage(navController,viewModel)
         }
         composable("results") {
-            ResultsView(navController)
+            ResultsView(navController,viewModel)
         }
-        composable("favourite") {
-            Favourite(navController)
-        }
-        composable("predictions") {
-            PreviewMatchScreen()
+
+        composable("predictions/{fixId}") {
+            val fixId = it.arguments?.getString("fixId")
+            MatchScreen(fixId?:"")
         }
         composable("league") {
             PreviewPremierLeagueScreen()
@@ -157,23 +127,29 @@ fun Navigation(navController: NavHostController) {
             SettingsPage(navController)
         }
         composable("news") {
-            NewsScreenPreview()
-        }
-        composable("search") {
-            com.example.test.ui.search.previewResults()
+            NewsScreenPreview(navController)
         }
         composable("livescreen") {
             //previewLive(navController)
-            prevMyScreen()
+            prevMyScreen(navController,viewModel)
         }
         composable("upcoming") {
-            Upcoming(navController)
+            Upcoming(navController,viewModel)
         }
         composable("Eventdetail") {
             EventDetailsView(navController)
         }
-        composable("LineUp") {
-            LineUpView(navController)
+        composable("LineUp/{fixId}/{teamId}/{vid}",
+            arguments = listOf(navArgument("fixId") { type = NavType.StringType },
+                navArgument("teamId") { type = NavType.StringType },
+                navArgument("vid") { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val fixId = backStackEntry.arguments?.getString("fixId")
+            val teamId = backStackEntry.arguments?.getString("teamId")
+            val vId = backStackEntry.arguments?.getString("vId")
+            LineUpView(navController,fixId,teamId){
+                navController.navigate("predictions/{${it}}")
+            }
         }
         composable("about us") {
             AboutUs(navController)
@@ -209,7 +185,9 @@ fun BottomNavigationBar(
     val backStackEntry = navController.currentBackStackEntryAsState()
     BottomAppBar (
         contentColor = Color.Black,
-        tonalElevation = 5.dp
+        tonalElevation = 5.dp,
+        modifier = Modifier
+            .height(60.dp)
     ){
         items.forEach { item ->
             val selected = item.route == backStackEntry.value?.destination?.route

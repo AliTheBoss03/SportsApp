@@ -21,6 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 
 data class NewsItem(
     val title: String,
@@ -72,7 +73,7 @@ fun NewsScreen(navController: NavHostController, newsItems: List<NewsItem> = lis
         ) {
             item {
                 logo()
-                searchBar()
+                searchBar(navController)
                 Text(
                     text = "Scoreball News",
                     color = Color(0xFFFFA500),
@@ -144,12 +145,9 @@ fun NewsArticle(news: NewsItem, onNewsClick: (NewsItem) -> Unit) {
     }
 }
 
-private fun <R> (() -> R).navigate(s: String): R {
-    TODO("Ikke implementeret endnu")
-}
 
 @Composable
-fun searchBar() {
+fun searchBar(navController: NavController) {
     Row (
         modifier = Modifier
             .fillMaxWidth()
@@ -164,39 +162,43 @@ fun searchBar() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Top
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.baseline_newspaper_24),
-                contentDescription = "Billede",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.baseline_search_24),
-                contentDescription = "Billede",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.baseline_settings_24),
-                contentDescription = "Billede",
-                modifier = Modifier
-                    .height(22.dp)
-                    .width(27.dp)
-            )
+            IconButton(onClick = { navController.navigate("news") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_newspaper_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
+
+            IconButton(onClick = { navController.navigate("settings") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_settings_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
         }
     }
 }
 
 
-@Preview(showBackground = true)
+
 @Composable
-fun NewsScreenPreview() {
+fun NewsScreenPreview(navController: NavController) {
     val dummyNavController = rememberNavController()
     NewsScreen(navController = dummyNavController, newsItems = listOf(
         NewsItem("Officielt: David Nunez skriver under med Liverpool", R.drawable.nunez, "Her er indholdet af nyheden..."),
         NewsItem("Premier League Legende stopper karrieren", R.drawable.hazard, "Her er indholdet af nyheden..."),
         NewsItem("Chok skifte: Rasmus Højlund på vej væk?", R.drawable.rasmush, "Her er indholdet af nyheden...")
     ))
+}
+
+@Preview
+@Composable
+fun prevNews() {
+    NewsScreenPreview(navController = rememberNavController())
 }

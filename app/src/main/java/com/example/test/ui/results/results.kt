@@ -9,22 +9,23 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,19 +38,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
+import com.example.test.ViewModel.MyViewModel
 import com.example.test.R
-
-
-class results {
-
-}
 
 @Composable
 fun logo() {
@@ -74,151 +69,59 @@ fun logo() {
     }
 
 }
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBar(onSearch: (String) -> Unit) {
-    var searchText by remember { mutableStateOf("") }
-
-
-    TextField(
-        value = searchText,
-        onValueChange = {
-            searchText = it
-            onSearch(it)
-
-
-        },
-        placeholder = { Text("Search") },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(50.dp, 0.dp, 10.dp, 10.dp)
-            .height(30.dp)
-            .clip(RoundedCornerShape(corner = CornerSize(20.dp))),
-
-
-
-        )
-
-
-}
-
-
-@Composable
-fun SearchFunktion() {
-    var searchQuery by remember { mutableStateOf("") }
-
-
-
+fun SearchBar(navController: NavController) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .height(50.dp)
-
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.End
     ) {
-
-
-        // Søgebjælke
-        SearchBar(onSearch = { query ->
-            // Opdater logik baseret på søgeordet (query)
-            searchQuery = query
-            // F.eks. opdater søgeresultater eller udfør anden relevant logik
-        })
-
-
-    }
-}
-
-
-
-
-
-@Composable
-fun kalender() {
-    LazyRow(
-            content = {
-            items(5) { index ->
-                val text = when (index) {
-                    0 -> "  Sat 30"
-                    1 -> "  Sun 31"
-                    2 -> "  Mon 1"
-                    3 -> "  Thu 2"
-                    4 -> "  Wed 3"
-
-                    else -> ""
-                }
-                kalenderLaylout(text,80.dp)
-
-
-
-            }
-        }
-    )
-}
-
-@Composable
-fun kalenderLaylout(text: String, paddingTop: Dp) {
-    Box(
-        modifier= Modifier
-            .padding(16.5.dp)
-            .padding(top = paddingTop)
-
-
-    ){
-        Row(
+        Row (
             modifier = Modifier
-                .height(65.dp)
-                .width(45.dp)
-                .clip(RoundedCornerShape(corner = CornerSize(20.dp)))
-                .background(
-
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(android.graphics.Color.parseColor("#FFA500")),
-                            Color(android.graphics.Color.parseColor("#000000")),
-                            Color(android.graphics.Color.parseColor("#FFA500"))
-                        )
-                    )
-                ),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .width(125.dp)
+                .height(31.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.Top
 
         ) {
-            Text(
-                text= text,color=Color.White,
-                style = androidx.compose.ui.text.TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold)
+            IconButton(onClick = { navController.navigate("news") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_newspaper_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
 
-            )
-
-
+            IconButton(onClick = { navController.navigate("settings") }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_settings_24),
+                    contentDescription = "Image",
+                    modifier = Modifier
+                        .height(22.dp)
+                        .width(27.dp)
+                )
+            }
         }
 
+    }
+}
+@Composable
+fun PremBar(navController: NavController,viewModel: MyViewModel) {
 
+    // Premierleague Bar
+    val results by viewModel.resultData.collectAsState()
+    LaunchedEffect(key1 = Unit,) {
     }
 
-}
-
-
-
-
-
-@Composable
-fun PremBar(navController: NavController) {
-    // Premierleague Bar
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 175.dp),
-
+            .padding(top = 75.dp),
         horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.Top,
-
-
-        ) {
-
-
-        //England bar
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -233,8 +136,6 @@ fun PremBar(navController: NavController) {
                     )
                 ),
         )
-
-
         {
 
             Image(
@@ -257,363 +158,85 @@ fun PremBar(navController: NavController) {
         }
 
 
-        //Resultater af Man UTD
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(76.dp)
-                .border(1.dp, Color.Black)
-                .clickable {
-                    navController.navigate("LineUp")
-                },
-            verticalArrangement = Arrangement.SpaceBetween
 
+        LazyColumn(){
+            itemsIndexed(results?.response ?: arrayListOf()) { i , item ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .border(1.dp, Color.Black),
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 10.dp, vertical = 5.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Row(horizontalArrangement = Arrangement.Start) {
+                            Text(
+                                text = item.teams.home.name.toString(),
+                                color = androidx.compose.ui.graphics.Color.White,
+                                textAlign = TextAlign.Start
 
-        ) {
+                            )
 
-
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(all = 10.dp)
-                    .height(25.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(horizontalArrangement = Arrangement.Start) {
-                    Text(
-                        text = "Manchester United", color = Color.White, textAlign = TextAlign.Start
-                    )
-                    Spacer(modifier = Modifier.width(187.dp))
-
-
-                    Column {
-                        Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
+                        }
                         Text(
-                            text = "FT", color = Color.White, textAlign = TextAlign.Start
+                            text = item.goals.home.toString(),
+                            color = androidx.compose.ui.graphics.Color.White,
+                            textAlign = TextAlign.Right
+                        )
+
+                    }
+
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(end = 40.dp)
+                    ) {
+                        Text(
+                            text = item.fixture.status.short.toString(),
+                            color = androidx.compose.ui.graphics.Color.White,
+                            textAlign = TextAlign.Right,
+                            modifier =  Modifier
+
+                                .fillMaxWidth()
+                        )
+
+                    }
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 10.dp, vertical = 5.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+
+                    ) {
+                        Text(
+                            text = item.teams.away.name.toString(), color = androidx.compose.ui.graphics.Color.White
+                        )
+                        Text(
+                            text = item.goals.away.toString(),
+                            color = androidx.compose.ui.graphics.Color.White,
+                            textAlign = TextAlign.Right
                         )
                     }
 
                 }
-                Text(
-                    text = "1", color = Color.White, textAlign = TextAlign.Right
-                )
-
-            }
-
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .height(38.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-
-            ) {
-                Text(
-                    text = "Luton City", color = Color.White
-                )
-                Text(
-                    text = "1", color = Color.White, textAlign = TextAlign.Right
-                )
             }
 
         }
-
-        //Mellemrum for plads
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(all = 5.dp)
-                .height(5.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-
-
-        }
-
-        //Bunrley
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(76.dp)
-                .border(1.dp, Color.Black)
-                .clickable {
-                    navController.navigate("LineUp")
-                },
-
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(all = 10.dp)
-                    .height(25.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ) {
-                Text(
-                    text = "Burnley", color = Color.White, textAlign = TextAlign.Start
-                )
-                Spacer(modifier = Modifier.width(200.dp))
-
-
-                Column {
-                    Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(
-                        text = "FT", color = Color.White, textAlign = TextAlign.Start
-                    )
-                }
-
-
-
-                Text(
-                    text = "1", color = Color.White, textAlign = TextAlign.Right
-                )
-
-
-            }
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .height(38.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ) {
-                Text(
-                    text = "Arsenal", color = Color.White
-                )
-                Text(
-                    text = "3", color = Color.White, textAlign = TextAlign.Right
-                )
-            }
-        }
-
-
-        //Mellemrum for plads
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(all = 5.dp)
-                .height(10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-        }
-
-
-        //Tottenham
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(76.dp)
-                .border(1.dp, Color.Black)
-                .clickable {
-                    navController.navigate("LineUp")
-                },
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(all = 10.dp)
-                    .height(25.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ) {
-                Text(
-                    text = "Tottenham", color = Color.White, textAlign = TextAlign.Start
-                )
-                Spacer(modifier = Modifier.width(180.dp))
-
-
-                Column {
-                    Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(
-                        text = "FT", color = Color.White, textAlign = TextAlign.Start
-                    )
-                }
-
-
-
-                Text(
-                    text = "5", color = Color.White, textAlign = TextAlign.Right
-                )
-            }
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .height(38.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ) {
-                Text(
-                    text = "Chealsea", color = Color.White
-                )
-                Text(
-                    text = "0", color = Color.White, textAlign = TextAlign.Right
-                )
-            }
-        }
-
-
-        //Mellemrum for plads
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(all = 5.dp)
-                .height(10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-        }
-
-
-        //Westham
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(76.dp)
-                .border(1.dp, Color.Black)
-                .clickable {
-                    navController.navigate("LineUp")
-                },
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(all = 10.dp)
-                    .height(25.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ) {
-                Text(
-                    text = "Westham", color = Color.White, textAlign = TextAlign.Start
-                )
-                Spacer(modifier = Modifier.width(185.dp))
-
-                Column {
-                    Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(
-                        text = "FT", color = Color.White, textAlign = TextAlign.Start
-                    )
-                }
-
-
-
-                Text(
-                    text = "3", color = Color.White, textAlign = TextAlign.Right
-                )
-            }
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .height(38.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ) {
-                Text(
-                    text = "Nottingham", color = Color.White
-                )
-                Text(
-                    text = "2", color = Color.White, textAlign = TextAlign.Right
-                )
-
-
-            }
-        }
-
-        //Mellem
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(all = 5.dp)
-                .height(10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-        }
-
-
-        //Brigthon
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(76.dp)
-                .border(1.dp, Color.Black)
-                .clickable {
-                    navController.navigate("LineUp")
-                },
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(all = 10.dp)
-                    .height(25.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ) {
-                Text(
-                    text = "Brigthon", color = Color.White, textAlign = TextAlign.Start
-                )
-                Spacer(modifier = Modifier.width(190.dp))
-
-
-
-                Column {
-                    Spacer(modifier = Modifier.height(10.dp)) // Move FT text slightly down
-                    Text(
-                        text = "FT", color = Color.White, textAlign = TextAlign.Start
-                    )
-
-                }
-
-
-
-
-                Text(
-                    text = "2", color = Color.White, textAlign = TextAlign.Right
-                )
-            }
-
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .height(38.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ) {
-                Text(
-                    text = "Liverpool", color = Color.White
-                )
-                Text(
-                    text = "3", color = Color.White, textAlign = TextAlign.Right
-                )
-
-
-            }
-
-
-
-
-        }
-
     }
 }
 
 @Composable
-fun ResultsView(navController: NavHostController) {
+fun ResultsView(navController: NavHostController, viewModel: MyViewModel) {
+
     // Anvender Column som den yderste container
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+
     ) {
 
         Box(
@@ -629,18 +252,10 @@ fun ResultsView(navController: NavHostController) {
                 )
         ) {
             logo()
-            SearchFunktion()
-
-            PremBar(navController)
-            kalender()
-
+            PremBar(navController,viewModel)
+            SearchBar(navController)
         }
 
     }
 }
 
-@Preview
-@Composable
-private fun previewResult() {
-    ResultsView(navController = rememberNavController())
-}

@@ -4,23 +4,26 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -28,20 +31,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.example.test.ViewModel.MyViewModel
 import com.example.test.R
+import com.example.test.data.response.LiveMatchRes
 
 
 @Composable
 fun logo() {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp),
+            .padding(bottom = 20.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
@@ -59,9 +61,7 @@ fun logo() {
 fun SearchBar(navController: NavController) {
     Column(
         modifier = Modifier
-            .height(65.dp)
-            .fillMaxWidth()
-            .padding(16.dp),
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.End
     ) {
@@ -71,21 +71,11 @@ fun SearchBar(navController: NavController) {
                 .height(31.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.Top
-    
+
         ) {
             IconButton(onClick = { navController.navigate("news") }) {
                 Image(
                     painter = painterResource(id = R.drawable.baseline_newspaper_24),
-                    contentDescription = "Image",
-                    modifier = Modifier
-                        .height(22.dp)
-                        .width(27.dp)
-                )
-            }
-
-            IconButton(onClick = { navController.navigate("search") }) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_search_24),
                     contentDescription = "Image",
                     modifier = Modifier
                         .height(22.dp)
@@ -111,8 +101,7 @@ fun NewsBar(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(350.dp)
-            .padding(vertical = 59.dp),
+            .padding(top = 15.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
 
@@ -120,20 +109,7 @@ fun NewsBar(navController: NavController) {
         Row (
             modifier = Modifier
                 .width(125.dp)
-                .height(35.dp)
-                /**
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(android.graphics.Color.parseColor("#FF9900")),
-                            Color(android.graphics.Color.parseColor("#000000")),
-                            Color(android.graphics.Color.parseColor("#FF9900"))
-                        )
-                    )
-                )*/,
-
-
-
+                .height(35.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -152,6 +128,7 @@ fun NewsBar(navController: NavController) {
                     , modifier = Modifier, color = Color.White, fontSize = 15.sp)
             }
         }
+        Spacer(modifier = Modifier.height(12.dp))
         Image(painter = painterResource(id = R.drawable.nunez),
             contentDescription = "Image",
             modifier = Modifier
@@ -161,15 +138,6 @@ fun NewsBar(navController: NavController) {
         )
 
         Text(text = "Officielt: Darwin Nunez skifter til Liverpool", modifier = Modifier
-            /**.background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color(android.graphics.Color.parseColor("#FF9900")),
-                        Color(android.graphics.Color.parseColor("#000000")),
-                        Color(android.graphics.Color.parseColor("#FF9900"))
-                    )
-                )
-            )*/
             .fillMaxWidth()
             , color = Color.White,
             textAlign = TextAlign.Center
@@ -181,48 +149,17 @@ fun NewsBar(navController: NavController) {
 
 
 @Composable
-fun LiveBar(navController: NavController) {
+fun LiveBar(navController: NavController, item: LiveMatchRes.Response) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 250.dp),
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
 
+
     ) {
-        Row(
-            modifier = Modifier
-                .width(200.dp)
-                .height(35.dp)
-                /**
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(android.graphics.Color.parseColor("#FF9900")),
-                            Color(android.graphics.Color.parseColor("#000000")),
-                            Color(android.graphics.Color.parseColor("#FF9900"))
-                        )
-                    )
-                )*/,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
 
-        ) {
-            OutlinedButton(
-                onClick = { navController.navigate("livescreen") },
-                border = BorderStroke(1.dp, Color.White),
-                modifier = Modifier.padding(1.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.baseline_newspaper_24),
-                    contentDescription = "news",
-                    modifier = Modifier.padding(end = 4.dp)
-                )
-                Text(text ="Watch Live Now"
-                    , modifier = Modifier, color = Color.White, fontSize = 15.sp)
-            }
-
-        }
+        Spacer(modifier = Modifier.height(10.dp))
         Row(modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
@@ -243,51 +180,72 @@ fun LiveBar(navController: NavController) {
         }
         Column (
             modifier = Modifier
-                .fillMaxWidth()
-                .height(85.dp),
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.SpaceBetween
         ){
-
-            Row (
+            Row(
                 Modifier
                     .fillMaxWidth()
-                    .padding(all = 10.dp)
-                    .height(38.dp),
+                    .padding(horizontal = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(horizontalArrangement = Arrangement.Start) {
+                    Text(
+                        text = item.teams.home.name.toString(),
+                        color = androidx.compose.ui.graphics.Color.White,
+                        textAlign = TextAlign.Start
+                    )
 
-            ){
-                Text(text = "Chelsea"
-                    , color = Color.White
-                    , textAlign = TextAlign.Start)
-                Text(text = "1"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
+                }
+                Text(
+                    text = item.goals.home.toString(),
+                    color = androidx.compose.ui.graphics.Color.White,
+                    textAlign = TextAlign.Right
+                )
+
             }
-            Row (
+
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(end = 40.dp)
+            ) {
+                Text(
+                    text = item.fixture.status.elapsed.toString(),
+                    color = androidx.compose.ui.graphics.Color.White,
+                    textAlign = TextAlign.Right,
+                    modifier =  Modifier
+                        .fillMaxWidth()
+                )
+
+            }
+            Row(
                 Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
-                    .height(38.dp),
+                    .padding(bottom = 20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
-
-            ){
-                Text(text = "Crystal Palace"
-                    , color = Color.White
+            ) {
+                Text(
+                    text = item.teams.away.name.toString(), color = androidx.compose.ui.graphics.Color.White
                 )
-                Text(text = "1"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
+                Text(
+                    text = item.goals.away.toString(),
+                    color = androidx.compose.ui.graphics.Color.White,
+                    textAlign = TextAlign.Right
+                )
             }
         }
+        Divider(color = Color.Black, thickness = 1.dp)
+
     }
 }
 
 @Composable
-fun Results(navController: NavController) {
+fun Results(navController: NavController, item: LiveMatchRes.Response) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = 120.dp),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Bottom
 
@@ -297,16 +255,7 @@ fun Results(navController: NavController) {
             modifier = Modifier
                 .width(125.dp)
                 .height(35.dp)
-                /**
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(android.graphics.Color.parseColor("#FF9900")),
-                            Color(android.graphics.Color.parseColor("#000000")),
-                            Color(android.graphics.Color.parseColor("#FF9900"))
-                        )
-                    )
-                )*/,
+                .padding(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
@@ -326,6 +275,7 @@ fun Results(navController: NavController) {
             }
 
         }
+        Spacer(modifier = Modifier.height(10.dp))
         Row(modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
@@ -350,47 +300,72 @@ fun Results(navController: NavController) {
                 .height(85.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ){
-
-            Row (
+            Row(
                 Modifier
                     .fillMaxWidth()
-                    .padding(all = 10.dp)
-                    .height(38.dp),
+                    .padding(horizontal = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(horizontalArrangement = Arrangement.Start) {
+                    Text(
+                        text = item.teams.home.name.toString(),
+                        color = androidx.compose.ui.graphics.Color.White,
+                        textAlign = TextAlign.Start
+                    )
 
-            ){
-                Text(text = "Chelsea"
-                    , color = Color.White
-                    , textAlign = TextAlign.Start)
-                Text(text = "1"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
-            }
-            Row (
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .height(38.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ){
-                Text(text = "Crystal Palace"
-                    , color = Color.White
+                }
+                Text(
+                    text = item.goals.home.toString(),
+                    color = androidx.compose.ui.graphics.Color.White,
+                    textAlign = TextAlign.Right
                 )
-                Text(text = "1"
-                    , color = Color.White
-                    , textAlign = TextAlign.Right)
+
+            }
+
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(end = 40.dp)
+            ) {
+                Text(
+                    text = item.fixture.status.short,
+                    color = androidx.compose.ui.graphics.Color.White,
+                    textAlign = TextAlign.Right,
+                    modifier =  Modifier
+                        .fillMaxWidth()
+                )
+
+            }
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = item.teams.away.name.toString(), color = androidx.compose.ui.graphics.Color.White
+                )
+                Text(
+                    text = item.goals.away.toString(),
+                    color = Color.White,
+                    textAlign = TextAlign.Right
+                )
             }
         }
+        Divider(color = Color.Black, thickness = 1.dp)
     }
 }
 
 
 
 @Composable
-fun FrontPage(navController: NavController) {
-    Box(modifier = Modifier
+fun FrontPage(navController: NavController,viewModel: MyViewModel) {
+    val liveMatches by viewModel.data.collectAsState()
+    val resultData by viewModel.resultData.collectAsState()
+
+    Column(modifier = Modifier
         .fillMaxSize()
+        .verticalScroll(rememberScrollState())
         .background(
             brush = Brush.verticalGradient(
                 colors = listOf(
@@ -401,18 +376,62 @@ fun FrontPage(navController: NavController) {
         )
     ) {
 
-        logo()
-        SearchBar(navController)
+        Row {
+            logo()
+            SearchBar(navController)
+        }
+        Row(
+            modifier = Modifier
+                .width(200.dp)
+                .height(35.dp)
+            /**
+            .background(
+            brush = Brush.verticalGradient(
+            colors = listOf(
+            Color(android.graphics.Color.parseColor("#FF9900")),
+            Color(android.graphics.Color.parseColor("#000000")),
+            Color(android.graphics.Color.parseColor("#FF9900"))
+            )
+            )
+            )*/,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+
+        ) {
+            OutlinedButton(
+                onClick = { navController.navigate("livescreen") },
+                border = BorderStroke(1.dp, Color.White),
+                modifier = Modifier.padding(1.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.baseline_newspaper_24),
+                    contentDescription = "news",
+                    modifier = Modifier.padding(end = 4.dp)
+                )
+                Text(text ="Watch Live Now"
+                    , modifier = Modifier, color = Color.White, fontSize = 15.sp)
+            }
+
+        }
+        liveMatches?.response?.let {
+            if(it.isNotEmpty()){
+                LiveBar(navController,it.first())
+            }
+
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        resultData?.response?.let {
+            if(it.isNotEmpty()){
+                Results(navController,it.first())
+            }
+
+        }
+        Spacer(modifier = Modifier.height(15.dp))
         NewsBar(navController)
-        LiveBar(navController)
-        Results(navController)
+
     }
 }
 
-@Preview
-@Composable
-private fun Preview() {
-    FrontPage(navController = rememberNavController())
-}
+
 
 

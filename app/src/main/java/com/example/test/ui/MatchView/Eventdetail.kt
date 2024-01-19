@@ -1,5 +1,4 @@
 package com.example.test.ui.MatchView
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,8 +16,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -92,42 +88,21 @@ fun LineUP2(navController:NavController) {
 
             Text(
                 text = "Event Details",
-                color = androidx.compose.ui.graphics.Color.White,
+                color = Color.White,
                 textAlign = TextAlign.Start,
                 fontWeight = FontWeight.Bold
 
 
             )
-
-
-
-
             Spacer(modifier = Modifier.width(35.dp))
-
-
             Box(
                 modifier = Modifier
                     .width(2.dp)
                     .height(20.dp)
-                    .background(androidx.compose.ui.graphics.Color.White)
+                    .background(Color.White)
 
 
             )
-
-
-            Spacer(modifier = Modifier.width(10.dp))
-            Button(
-                onClick = { navController.navigate("table") },
-                modifier = Modifier.padding(1.dp),
-                colors = ButtonDefaults.buttonColors( Color.Transparent),
-            ) {
-                Text(
-                    text = "Table",
-                    color = androidx.compose.ui.graphics.Color.White,
-                    textAlign = TextAlign.Right
-
-                )
-            }
         }
     }
 }
@@ -135,7 +110,7 @@ fun LineUP2(navController:NavController) {
 
 
 @Composable
-fun Stadium() {
+fun Stadium(city: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -155,16 +130,14 @@ fun Stadium() {
 
 
 
-        ) {
+            ) {
             Image(
-                painter = painterResource(id = R.drawable.stadium), // Erstat med din billedressource
+                painter = painterResource(id = R.drawable.stadium),
                 contentDescription = "Stadium Image",
-                modifier = Modifier.size(45.dp) // Justér størrelsen efter behov
-                .padding(start = 5.dp),
+                modifier = Modifier.size(45.dp)
+                    .padding(start = 5.dp),
 
-            )
-
-
+                )
 
 
             Text(
@@ -175,11 +148,11 @@ fun Stadium() {
 
 
 
-            )
+                )
 
-            Spacer(modifier = Modifier.width(125.dp))
+            Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "Old Traford (Man UTD)",
+                text = city,
                 color = Color.White,
                 textAlign = TextAlign.Right,
             )
@@ -193,7 +166,7 @@ fun Stadium() {
 
 
 @Composable
-fun Ref() {
+fun Ref(referee: String?) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -228,16 +201,14 @@ fun Ref() {
                 fontSize = 16.sp,
                 color = Color.White,
                 textAlign = TextAlign.Start,
-
-
             )
 
 
 
 
-            Spacer(modifier = Modifier.width(200.dp))
+            Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "Frank Castle",
+                text = referee ?: "",
                 color = Color.White,
                 textAlign = TextAlign.Right,
             )
@@ -248,71 +219,6 @@ fun Ref() {
 
     }
 }
-
-
-
-@Composable
-fun description() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 350.dp)
-            .height(300.dp),
-    ) {
-
-
-        Divider(
-            color = Color.White,
-            thickness = 1.dp,
-            modifier = Modifier.padding(vertical = 12.dp) // Tilføj vertical padding omkring Divider
-        )
-
-
-
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 16.dp)
-
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.desc), // Erstat med din billedressource
-                contentDescription = "Ref Image",
-                modifier = Modifier.size(25.dp) // Justér størrelsen efter behov
-            )
-
-            Spacer(modifier = Modifier.width(1.dp)) // Tilføj en lille afstand mellem billede og tekst
-
-            Text(
-                text = "Description",
-                color = Color.White,
-                textAlign = TextAlign.Start,
-                fontSize = 16.sp,
-                modifier = Modifier.padding(start = 5.dp) // Tilføj start padding til teksten
-            )
-        }
-
-
-        Text(
-            text = "A top showdown between arch-rivals that is " +
-                    "decisive for the 1st place starts today." +
-                    " Both sides have been in superb form with an " +
-                    "average goalscorer of 3 per match, but who will" +
-                    " end up taking the victory to reach the top?.",
-            color = Color.White,
-            lineHeight = 24.sp,
-            modifier = Modifier.padding(top = 16.dp)
-                .padding(start = 48.dp)
-                .width(320.dp)
-        )
-
-    }
-
-}
-
-
-
-
 
 
 @Composable
@@ -327,20 +233,13 @@ fun EventDetailsView(navController: NavController) {
                 )
             )
         )
-
-
-
-
     ){
 
 
         searchBar(navController)
         logo()
-        Team()
         LineUP2(navController)
-        Stadium()
-        Ref()
-        description()
+
 
     }
 }
